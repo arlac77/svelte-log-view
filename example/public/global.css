@@ -53,3 +53,8 @@ fieldset {
   border-bottom-width: 0;
   border-left-width: 0;
 }
+
+.log {
+  white-space: pre;
+  font-family: courier, "courier new", monospace;
+}
