@@ -1,4 +1,5 @@
 <script context="module">
   import LogView from './LogView.svelte';
-  export { LogView };
+  import { lineIterator} from './lineIterator.mjs';
+  export { LogView, lineIterator };
 </script>
