@@ -1,7 +1,3 @@
-/*
-  let response = await fetch(url);
-  let reader = response.body.getReader();
-*/
 
 /**
  *
