@@ -24,7 +24,7 @@ export default {
           modules.router.get("/api/log", async (ctx, next) => {
             const lines = [];
             for (let i = 1; i < 100; i++) {
-              lines.push(`line ${i}`);
+              lines.push(`api line ${i}`);
             }
             ctx.body = lines.join("\n");
             next();
