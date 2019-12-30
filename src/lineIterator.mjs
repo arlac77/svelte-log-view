@@ -6,18 +6,21 @@
 export async function* lineIterator(reader) {
   const utf8Decoder = new TextDecoder("utf-8");
   let { value, done } = await reader.read();
+
+  if(done) { return; }
+  
   value = value ? utf8Decoder.decode(value) : "";
 
-  let re = /\n|\r|\r\n/gm;
+  const re = /\n|\r\n/gm;
   let startIndex = 0;
 
   for (;;) {
-    let result = re.exec(value);
+    const result = re.exec(value);
     if (!result) {
       if (done) {
         break;
       }
-      let remainder = value.substr(startIndex);
+      const remainder = value.substr(startIndex);
       ({ value, done } = await reader.read());
 
       value = remainder + (value ? utf8Decoder.decode(value) : "");
