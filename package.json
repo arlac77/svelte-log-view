@@ -35,8 +35,7 @@
     "url": "https://github.com/arlac77/svelte-log-view/issues"
   },
   "homepage": "https://github.com/arlac77/svelte-log-view#readme",
-  "config": {
-  },
+  "config": {},
   "template": {
     "repository": {
       "url": "https://github.com/arlac77/npm-package-template-svelte.git"
