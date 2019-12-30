@@ -1,6 +1,5 @@
 <script>
   import { onMount } from "svelte";
-
   import { LogView, lineIterator } from "../../src/index.svelte";
 
   async function wait(msecs) {
@@ -28,5 +27,4 @@
   */
 </script>
 
-<h1>Example</h1>
 <LogView {source} />
