@@ -1,7 +1,7 @@
 {
   "name": "svelte-log-view",
   "version": "0.0.0-semantic-release",
-  "module": "src/index.svelte",
+  "module": "src/index.mjs",
   "svelte": "src/index.svelte",
   "description": "show log content",
   "keywords": [
@@ -35,7 +35,6 @@
     "url": "https://github.com/arlac77/svelte-log-view/issues"
   },
   "homepage": "https://github.com/arlac77/svelte-log-view#readme",
-  "config": {},
   "template": {
     "repository": {
       "url": "https://github.com/arlac77/npm-package-template-svelte.git"
