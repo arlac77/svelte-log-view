@@ -1,0 +1,10 @@
+{
+  "name": "svelte-log-view",
+  "description": "show log content",
+  "icons": [
+    {
+      "src": "facicon.ico",
+      "sizes": "16x16"
+    }
+  ]
+}
