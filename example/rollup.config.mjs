@@ -12,13 +12,25 @@ export default {
     file: "example/public/bundle.mjs"
   },
   plugins: [
+    resolve({ browser: true }),
+    svelte(),
     dev({
       port,
       dirs: ["example/public"],
       spa: "example/public/index.html",
-      basePath: "/base"
-    }),
-    resolve({ browser: true }),
-    svelte()
+      basePath: "/base",
+      extend(app, modules) {
+        app.use(
+          modules.router.get("/api/log", async (ctx, next) => {
+            const lines = [];
+            for (let i = 1; i < 100; i++) {
+              lines.push(`api line ${i}`);
+            }
+            ctx.body = lines.join("\n");
+            next();
+          })
+        );
+      }
+    })
   ]
 };
