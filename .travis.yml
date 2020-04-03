@@ -1,6 +1,8 @@
 language: node_js
 addons:
   chrome: stable
+env:
+  - BROWSER=chrome
 jobs:
   include:
     - stage: test
@@ -18,15 +20,13 @@ jobs:
       script: skip
       deploy:
         provider: script
-        skip_cleanup: 'true'
         script:
           - npx xsemantic-release
           - npx semantic-release
+        cleanup: 'false'
 branches:
   only:
     - master
     - /^greenkeeper/.*$/
     - /^mkpr/.*$/
     - /^npm-template-sync/.*$/
-env:
-  - BROWSER=chrome
