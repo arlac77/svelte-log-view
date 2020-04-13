@@ -1,14 +1,14 @@
 <script>
   import { onMount } from "svelte";
+
   export let source;
 
-  let data = "";
-
+  let lines;
   onMount(async () => {
-    for await (const line of source) {
-      data += line + "\n";
-    }
+  for await (const line of source) {
+    lines += line + "\n";
+  }
   });
 </script>
 
-<div class="log">{data}</div>
+<div class="log">{lines}</div>

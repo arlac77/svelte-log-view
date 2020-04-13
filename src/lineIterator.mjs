@@ -4,11 +4,12 @@
  * @param reader
  */
 export async function* lineIterator(reader) {
-  const utf8Decoder = new TextDecoder("utf-8");
   let { value, done } = await reader.read();
 
   if(done) { return; }
   
+  const utf8Decoder = new TextDecoder("utf-8");
+
   value = value ? utf8Decoder.decode(value) : "";
 
   const re = /\n|\r\n/gm;
