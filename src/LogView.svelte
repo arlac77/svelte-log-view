@@ -3,12 +3,17 @@
 
   export let source;
 
-  let lines = '';
+  let lines = [];
+
   onMount(async () => {
-  for await (const line of source) {
-    lines += line + "\n";
-  }
+    for await (const line of source) {
+      lines = lines.concat(line);
+    }
   });
 </script>
 
-<div class="log">{lines}</div>
+<div class="log">
+  {#each lines as line}
+    <div>{line}</div>
+  {/each}
+</div>
