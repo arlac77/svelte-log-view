@@ -3,7 +3,7 @@
 
   export let source;
 
-  let lines;
+  let lines = '';
   onMount(async () => {
   for await (const line of source) {
     lines += line + "\n";

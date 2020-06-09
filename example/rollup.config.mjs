@@ -1,6 +1,7 @@
 import resolve from "@rollup/plugin-node-resolve";
 import dev from "rollup-plugin-dev";
 import svelte from "rollup-plugin-svelte";
+import { Readable } from "stream";
 
 const port = 5000;
 
@@ -12,7 +13,7 @@ export default {
     file: "example/public/bundle.mjs"
   },
   plugins: [
-    resolve({ browser: true }),
+    resolve.nodeResolve({ browser: true }),
     svelte(),
     dev({
       port,
@@ -26,18 +27,17 @@ export default {
 
         app.use(
           modules.router.get("/api/log", async (ctx, next) => {
-            const s = new Readable();
+            let i = 1;
 
-            s._read = function(n) {
-              let i = 1;
-              this.push(`n = ${n}`);
-              setInterval(() => {
-                this.push(`line ${i}`);
-                i++;
-              }, 500);
-            };
-
-            ctx.body = s;
+            ctx.body = new Readable({
+              encoding: "utf8",
+              read(size) {
+                setTimeout(() => {
+                  this.push(`line ${i}\n`);
+                  i++;
+                }, 1000);
+              }
+            });
 
             /*
             for (let i = 1; i < 100; i++) {
@@ -52,6 +52,7 @@ export default {
             }
             ctx.body = lines.join("\n");
             */
+
             next();
           })
         );

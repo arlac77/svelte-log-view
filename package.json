@@ -4,8 +4,8 @@
   "publishConfig": {
     "access": "public"
   },
-  "main": "src/index.mjs",
-  "svelte": "src/index.svelte",
+  "main": "./src/index.mjs",
+  "svelte": "./src/index.svelte",
   "description": "show log content",
   "keywords": [
     "component",
@@ -22,8 +22,8 @@
   "scripts": {
     "start": "rollup -c example/rollup.config.mjs -w",
     "test": "testcafe $BROWSER:headless tests/*-test.js -s test-results --app-init-delay 500 --app \"rollup -c example/rollup.config.mjs -w\"",
-    "docs": "documentation readme src/index.mjs --section=API",
-    "lint": "documentation lint src/index.mjs"
+    "docs": "documentation readme ./src/index.mjs --section=API",
+    "lint": "documentation lint ./src/index.mjs"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^8.0.1",
@@ -34,9 +34,6 @@
     "semantic-release": "^17.0.8",
     "svelte": "^3.23.1",
     "testcafe": "^1.8.6"
-  },
-  "engines": {
-    "node": ">=14.3.0"
   },
   "repository": {
     "type": "git",
