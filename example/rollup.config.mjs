@@ -26,32 +26,14 @@ export default {
         }
 
         app.use(
-          modules.router.get("/api/log", async (ctx, next) => {
+          modules.router.get("/api/log", (ctx, next) => {
             let i = 1;
-
             ctx.body = new Readable({
               encoding: "utf8",
               read(size) {
-                setTimeout(() => {
-                  this.push(`line ${i}\n`);
-                  i++;
-                }, 1000);
+                setTimeout(() => this.push(`line ${i++}\n`), 1000);
               }
             });
-
-            /*
-            for (let i = 1; i < 100; i++) {
-              s.push(`api line ${i}`);
-              await wait(100);
-            }*/
-
-            /*
-            const lines = [];
-            for (let i = 1; i < 100; i++) {
-              lines.push(`api line ${i}`);
-            }
-            ctx.body = lines.join("\n");
-            */
 
             next();
           })
