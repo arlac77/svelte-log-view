@@ -8,10 +8,12 @@
   }
 </script>
 
-{#await lines()}
-  <p>...waiting</p>
-{:then source}
-  <LogView {source} />
-{:catch error}
-  <p style="color: red">{error.message}</p>
-{/await}
+<div id="log">
+  {#await lines()}
+    <p>...waiting</p>
+  {:then source}
+    <LogView {source} />
+  {:catch error}
+    <p style="color: red">{error.message}</p>
+  {/await}
+</div>
