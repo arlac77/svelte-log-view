@@ -12,33 +12,30 @@ export default {
     format: "esm",
     file: "example/public/bundle.mjs"
   },
-  plugins: [
-    resolve.nodeResolve({ browser: true }),
-    svelte(),
-    dev({
-      port,
-      dirs: ["example/public"],
-      spa: "example/public/index.html",
-      basePath: "/base",
-      extend(app, modules) {
-        async function wait(msecs = 100) {
-          return new Promise(resolve => setTimeout(resolve, msecs));
-        }
-
-        app.use(
-          modules.router.get("/api/log", (ctx, next) => {
-            let i = 1;
-            ctx.body = new Readable({
-              encoding: "utf8",
-              read(size) {
-                setTimeout(() => this.push(`line ${i++}\n`), 500);
-              }
-            });
-
-            next();
-          })
-        );
+  plugins: [resolve.nodeResolve({ browser: true }), svelte(), dev({
+    port,
+    dirs: ["example/public"],
+    spa: "example/public/index.html",
+    basePath: "/base",
+    extend(app, modules) {
+      async function wait(msecs = 100) {
+        return new Promise(resolve => setTimeout(resolve, msecs));
       }
-    })
-  ]
+
+      app.use(
+        modules.router.get("/api/log", (ctx, next) => {
+          let i = 1;
+          ctx.body = new Readable({
+            encoding: "utf8",
+            read(size) {
+              setTimeout(() => this.push(`line ${i++}\n`), 500);
+            }
+          });
+
+          next();
+        })
+      );
+    }
+  }), resolve({ browser: true,
+            dedupe: importee => importee === 'svelte' || importee.startsWith('svelte/') })]
 };
