@@ -7,13 +7,14 @@
 
   onMount(async () => {
     for await (const line of source) {
-      lines = lines.concat(line);
+      lines.push(line);
+      lines = lines; // force reactive
     }
   });
 </script>
 
 <div class="log">
-  {#each lines as line}
+  {#each lines as line, i (i)}
     <div>{line}</div>
   {/each}
 </div>
