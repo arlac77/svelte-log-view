@@ -1,7 +1,8 @@
 
 /**
- *
- * @param reader
+ * Produces lines from a reader
+ * @param {Reader} reader
+ * @return {AsyncIterator<string>} lines
  */
 export async function* lineIterator(reader) {
   let { value, done } = await reader.read();
@@ -36,7 +37,12 @@ export async function* lineIterator(reader) {
   }
 }
 
-export async function* parseJson(source) {
+/**
+ * Decodes json lines
+ * @param {AsyncIterator<string>} source 
+ * @return {AsyncIterator<Object>} decoded json 
+ */
+export async function* decodeJson(source) {
   for await (const line of source) {
     yield JSON.parse(line);
   }
