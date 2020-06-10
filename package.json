@@ -4,8 +4,8 @@
   "publishConfig": {
     "access": "public"
   },
-  "main": "./src/index.mjs",
-  "svelte": "./src/index.svelte",
+  "main": "src/index.mjs",
+  "svelte": "src/index.svelte",
   "description": "show log content",
   "keywords": [
     "component",
