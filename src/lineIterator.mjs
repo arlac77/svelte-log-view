@@ -9,7 +9,7 @@ export async function* lineIterator(reader) {
 
   if(done) { return; }
   
-  const utf8Decoder = new TextDecoder("utf-8");
+  const utf8Decoder = new TextDecoder("utf8");
 
   value = value ? utf8Decoder.decode(value) : "";
 
