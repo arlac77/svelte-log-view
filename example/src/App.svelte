@@ -8,7 +8,6 @@
   }
 </script>
 
-<h2>Logs</h2>
 {#await lines()}
   <p>...waiting</p>
 {:then source}
