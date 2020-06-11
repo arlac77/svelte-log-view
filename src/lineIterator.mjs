@@ -47,3 +47,24 @@ export async function* decodeJson(source) {
     yield JSON.parse(line);
   }
 }
+
+function wait(msecs) { return new Promise(resolve => setTimeout(resolve, msecs)); }
+
+/**
+ * Throttle input
+ * @param {AsyncIterator<any>} source 
+ * @param {number} rate in milliseconds per entry
+ * @return {AsyncIterator<any>} source entries throttled 
+ */
+export async function* throttle(source,rate=100) {
+  let last = 0;
+  for await (const item of source) {
+    const now = Date.now();
+    if(now < last + rate) {
+      await wait(last + rate - now);
+    }
+    last = now;
+    yield item;
+  }
+}
+
