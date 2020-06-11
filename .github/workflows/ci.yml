@@ -8,6 +8,8 @@ jobs:
       - uses: actions/setup-node@v1
       - run: npm install
       - run: npm test
+        env:
+          BROWSER: 'chrome'
       - run: npx semantic-release
         env:
           CI: 'true'
