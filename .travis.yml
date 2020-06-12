@@ -1,0 +1,40 @@
+language: node_js
+addons:
+  chrome: stable
+env:
+  - BROWSER=chrome
+jobs:
+  include:
+    - stage: test
+      node_js:
+        - '-10'
+        - '-11'
+        - '-12'
+        - '-13'
+        - '-14'
+        - '-15'
+        - lts/*
+      script:
+        - npm run test
+    - stage: doc
+      node_js: lts/*
+      skip_cleanup: 'true'
+      cleanup: '--delete--'
+      script:
+        - npm run lint
+        - npm run docs
+    - stage: release
+      node_js: lts/*
+      script: skip
+      deploy:
+        provider: script
+        skip_cleanup: '--delete--'
+        cleanup: 'false'
+        script:
+          - npx semantic-release
+branches:
+  only:
+    - master
+    - /^greenkeeper/.*$/
+    - /^mkpr/.*$/
+    - /^npm-template-sync/.*$/
