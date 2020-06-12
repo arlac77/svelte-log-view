@@ -62,6 +62,32 @@
   async function handleScroll() {
     const { scrollTop } = viewport;
   }
+
+  function onKeyUp(event) {
+    switch (event.keyCode) {
+      case 8:
+      case 37:
+      case 75:
+       // entriesLoadPrevious();
+        break;
+      case 32:
+      case 39:
+      case 74:
+      //  entriesLoadNext();
+        break;
+
+      case 71:
+     //   if (event.shiftKey) entriesLoadTail();
+     //   else entriesLoadHead();
+        break;
+      case 171:
+     //   entriesMore();
+        break;
+      case 173:
+     //   entriesLess();
+        break;
+    }
+  }
 </script>
 
 <style>
@@ -89,7 +115,9 @@
     bind:this={contents}
     style="padding-top: {top}px; padding-bottom: {bottom}px;">
     {#each visible as line, i (i)}
-      <svelte-virtual-list-row><slot line={line}/></svelte-virtual-list-row>
+      <svelte-virtual-list-row>
+        <slot {line} />
+      </svelte-virtual-list-row>
     {/each}
   </svelte-virtual-list-contents>
 </svelte-virtual-list-viewport>
