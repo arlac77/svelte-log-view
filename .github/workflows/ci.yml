@@ -1,13 +1,13 @@
 name: CI
 "on": push
 jobs:
-  build:
+  test:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ubuntu-latest]
         node: [14]
-        browser: [chrome]
+        browser: [chrome,firefox]
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
@@ -17,6 +17,14 @@ jobs:
       - run: npm test
         env:
           BROWSER: ${{ matrix.browser }}
+  release:
+    needs: [test]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - run: npm install
       - run: npx semantic-release
         env:
           CI: "true"
