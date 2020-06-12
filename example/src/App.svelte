@@ -12,7 +12,9 @@
   {#await lines()}
     <p>...waiting</p>
   {:then source}
-    <LogView {source} />
+    <LogView {source} let:line>
+     {line}
+    </LogView>
   {:catch error}
     <p style="color: red">{error.message}</p>
   {/await}

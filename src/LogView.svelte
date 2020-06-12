@@ -10,20 +10,20 @@
 
   let viewport;
   let contents;
-	let rows;
+  let rows;
 
   let viewportHeight = 0;
   let mounted;
 
-	let top = 0;
-	let bottom = 0;
+  let top = 0;
+  let bottom = 0;
 
   let lines = [];
   let visible = lines;
 
   onMount(async () => {
     mounted = true;
-    rows = contents.getElementsByTagName('svelte-virtual-list-row');
+    rows = contents.getElementsByTagName("svelte-virtual-list-row");
 
     for await (const line of source) {
       lines.push(line);
@@ -31,7 +31,7 @@
     }
   });
 
-	$: if (mounted) refresh(lines, viewportHeight, lineHeight);
+  $: if (mounted) refresh(lines, viewportHeight, lineHeight);
 
   async function refresh(items, viewportHeight, lineHeight) {
     const { scrollTop } = viewport;
@@ -59,10 +59,9 @@
     */
   }
 
-  	async function handleScroll() {
-		const { scrollTop } = viewport;
-    }
-
+  async function handleScroll() {
+    const { scrollTop } = viewport;
+  }
 </script>
 
 <style>
@@ -82,7 +81,6 @@
 </style>
 
 <svelte-virtual-list-viewport
-  class="log"
   bind:this={viewport}
   bind:offsetHeight={viewportHeight}
   on:scroll={handleScroll}
@@ -91,7 +89,7 @@
     bind:this={contents}
     style="padding-top: {top}px; padding-bottom: {bottom}px;">
     {#each visible as line, i (i)}
-      <svelte-virtual-list-row>{line}</svelte-virtual-list-row>
+      <svelte-virtual-list-row><slot line={line}/></svelte-virtual-list-row>
     {/each}
   </svelte-virtual-list-contents>
 </svelte-virtual-list-viewport>
