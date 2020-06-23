@@ -12,7 +12,7 @@ export default {
     format: "esm",
     file: "example/public/bundle.mjs"
   },
-  plugins: [resolve.nodeResolve({ browser: true }), svelte(), dev({
+  plugins: [svelte(), dev({
     port,
     dirs: ["example/public"],
     spa: "example/public/index.html",
