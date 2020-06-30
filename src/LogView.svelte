@@ -41,12 +41,12 @@
 
     /*    
     let i = start;
-    while (contentHeight < viewportHeight && i < lines.length) {
-      let line = rows[i - start];
-      if (!line) {
+    while (contentHeight < viewportHeight && i < rows.length) {
+      let row = rows[i - start];
+      if (!row) {
         end = i + 1;
         await tick();
-        line = lines[i - start];
+        line = rows[i - start];
       }
       contentHeight += lineHeight;
       i += 1;
@@ -67,20 +67,20 @@
       case 8:
       case 37:
       case 75:
-       // entriesLoadPrevious();
+        // entriesLoadPrevious();
         break;
       case 32:
       case 39:
       case 74:
-      //  entriesLoadNext();
+        //  entriesLoadNext();
         break;
 
-      case 71:  // 'G' show last lines
+      case 71: // 'G' show last lines
         break;
- 
+
       case 103: // 'g' show first lines
         break;
-     }
+    }
   }
 </script>
 
