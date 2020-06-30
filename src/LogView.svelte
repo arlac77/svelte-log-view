@@ -15,9 +15,6 @@
   let viewportHeight = 0;
   let mounted;
 
-  let top = 0;
-  let bottom = 0;
-
   let lines = [];
   let visible = lines;
 
@@ -31,13 +28,15 @@
     }
   });
 
-  $: if (mounted) refresh(lines, viewportHeight, lineHeight);
+  $: if (mounted) refresh(lines);
 
-  async function refresh(items, viewportHeight, lineHeight) {
+  async function refresh(items) {
     const { scrollTop } = viewport;
     await tick();
 
-    let contentHeight = top - scrollTop;
+    let contentHeight = - scrollTop;
+
+    console.log("refresh", contentHeight, items.length, rows.length);
 
     /*    
     let i = start;
@@ -53,16 +52,16 @@
     }
     end = i;
     const remaining = items.length - end;
-    bottom = remaining * average_height;
     */
   }
 
   async function handleScroll() {
     const { scrollTop } = viewport;
+    console.log("handleScroll", scrollTop);
   }
 
-  function handleKey(event) {
-    console.log(event.keyCode);
+  function handleKeydown(event) {
+    //console.log(event.keyCode);
     switch (event.keyCode) {
       case 8:
       case 37:
@@ -100,15 +99,15 @@
   }
 </style>
 
+<svelte:window on:keydown={handleKeydown}/>
 <svelte-virtual-list-viewport
   bind:this={viewport}
   bind:offsetHeight={viewportHeight}
   on:scroll={handleScroll}
-  on:keyup={handleKey}
   style="height: {height};">
+
   <svelte-virtual-list-contents
-    bind:this={contents}
-    style="padding-top: {top}px; padding-bottom: {bottom}px;">
+    bind:this={contents}>
     {#each visible as line, i (i)}
       <svelte-virtual-list-row>
         <slot {line} />
