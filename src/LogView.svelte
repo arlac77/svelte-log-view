@@ -3,7 +3,7 @@
 
   export let source;
   export let height = "100%";
-  export let lineHeight = undefined;
+  export let lineHeight = 10;
 
   export let start = 0;
   export let end = 0;
@@ -37,25 +37,23 @@
     const { scrollTop } = viewport;
     await tick();
 
-    /*
-    let content_height = top - scrollTop;
+    let contentHeight = top - scrollTop;
+
+    /*    
     let i = start;
-    while (content_height < viewportHeight && i < lines.length) {
-      let row = rows[i - start];
-      if (!row) {
+    while (contentHeight < viewportHeight && i < lines.length) {
+      let line = rows[i - start];
+      if (!line) {
         end = i + 1;
         await tick();
-        row = rows[i - start];
+        line = lines[i - start];
       }
-      const row_height = (height_map[i] = lineHeight || row.offsetHeight);
-      content_height += row_height;
+      contentHeight += lineHeight;
       i += 1;
     }
     end = i;
     const remaining = items.length - end;
-    average_height = (top + content_height) / end;
     bottom = remaining * average_height;
-    height_map.length = items.length;
     */
   }
 
@@ -63,7 +61,8 @@
     const { scrollTop } = viewport;
   }
 
-  function onKeyUp(event) {
+  function handleKey(event) {
+    console.log(event.keyCode);
     switch (event.keyCode) {
       case 8:
       case 37:
@@ -76,17 +75,12 @@
       //  entriesLoadNext();
         break;
 
-      case 71:
-     //   if (event.shiftKey) entriesLoadTail();
-     //   else entriesLoadHead();
+      case 71:  // 'G' show last lines
         break;
-      case 171:
-     //   entriesMore();
+ 
+      case 103: // 'g' show first lines
         break;
-      case 173:
-     //   entriesLess();
-        break;
-    }
+     }
   }
 </script>
 
@@ -110,6 +104,7 @@
   bind:this={viewport}
   bind:offsetHeight={viewportHeight}
   on:scroll={handleScroll}
+  on:keyup={handleKey}
   style="height: {height};">
   <svelte-virtual-list-contents
     bind:this={contents}
