@@ -5,8 +5,8 @@
   export let height = "100%";
   export let lineHeight = 10;
 
-  export let start = 0;
-  export let end = 0;
+  let start = 0;
+  let end = 0;
 
   let viewport;
   let contents;
@@ -20,7 +20,7 @@
 
   onMount(async () => {
     mounted = true;
-    rows = contents.getElementsByTagName("svelte-virtual-list-row");
+    rows = contents.getElementsByTagName("virtual-list-row");
 
     for await (const line of source) {
       lines.push(line);
@@ -84,34 +84,34 @@
 </script>
 
 <style>
-  svelte-virtual-list-viewport {
+  virtual-list-viewport {
     position: relative;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     display: block;
   }
-  svelte-virtual-list-contents,
-  svelte-virtual-list-row {
+  virtual-list-contents,
+  virtual-list-row {
     display: block;
   }
-  svelte-virtual-list-row {
+  virtual-list-row {
     overflow: hidden;
   }
 </style>
 
 <svelte:window on:keydown={handleKeydown}/>
-<svelte-virtual-list-viewport
+<virtual-list-viewport
   bind:this={viewport}
   bind:offsetHeight={viewportHeight}
   on:scroll={handleScroll}
   style="height: {height};">
 
-  <svelte-virtual-list-contents
+  <virtual-list-contents
     bind:this={contents}>
     {#each visible as line, i (i)}
-      <svelte-virtual-list-row>
+      <virtual-list-row>
         <slot {line} />
-      </svelte-virtual-list-row>
+      </virtual-list-row>
     {/each}
-  </svelte-virtual-list-contents>
-</svelte-virtual-list-viewport>
+  </virtual-list-contents>
+</virtual-list-viewport>
