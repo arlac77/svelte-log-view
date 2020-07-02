@@ -30,29 +30,23 @@
 
   $: if (mounted) refresh(lines);
 
-  async function refresh(items) {
+  async function refresh(items, first) {
     const { scrollTop } = viewport;
     await tick();
 
-    let contentHeight = - scrollTop;
+    console.log("refresh", start, end, items.length, rows.length);
 
-    console.log("refresh", contentHeight, items.length, rows.length);
+    let contentHeight = 0 - scrollTop;
 
-    /*    
-    let i = start;
-    while (contentHeight < viewportHeight && i < rows.length) {
-      let row = rows[i - start];
-      if (!row) {
-        end = i + 1;
+    for (end = start; end < rows.length && contentHeight < viewportHeight; end++, contentHeight += lineHeight) {
+      let row = rows[end - start];
+      if(!row) {
         await tick();
-        line = rows[i - start];
+        line = rows[end - start];
+
+        console.log(lineHeight, end);
       }
-      contentHeight += lineHeight;
-      i += 1;
     }
-    end = i;
-    const remaining = items.length - end;
-    */
   }
 
   async function handleScroll() {
@@ -75,9 +69,13 @@
         break;
 
       case 71: // 'G' show last lines
+        start = lines.length - 10;
+        refresh(lines);
         break;
 
       case 103: // 'g' show first lines
+        start = 0;
+        refresh(lines);
         break;
     }
   }
@@ -87,7 +85,6 @@
   virtual-list-viewport {
     position: relative;
     overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
     display: block;
   }
   virtual-list-contents,
@@ -99,15 +96,14 @@
   }
 </style>
 
-<svelte:window on:keydown={handleKeydown}/>
+<svelte:window on:keydown={handleKeydown} />
 <virtual-list-viewport
   bind:this={viewport}
   bind:offsetHeight={viewportHeight}
   on:scroll={handleScroll}
   style="height: {height};">
 
-  <virtual-list-contents
-    bind:this={contents}>
+  <virtual-list-contents bind:this={contents}>
     {#each visible as line, i (i)}
       <virtual-list-row>
         <slot {line} />
