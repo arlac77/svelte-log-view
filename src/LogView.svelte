@@ -28,29 +28,13 @@
     }
   });
 
-  $: if (mounted) refresh(lines);
+  $: if (mounted) refresh();
 
-  async function refresh(items) {
+  async function refresh() {
     const { scrollTop } = viewport;
     await tick();
 
-    console.log("refresh", start, end, items.length, rows.length);
-
-    let contentHeight = 0 - scrollTop;
-
-    for (
-      end = start;
-      end < rows.length && contentHeight < viewportHeight;
-      end++, contentHeight += lineHeight
-    ) {
-      let row = rows[end - start];
-      if (!row) {
-        await tick();
-        line = rows[end - start];
-
-        console.log(lineHeight, end);
-      }
-    }
+    console.log("refresh", start, end, lines.length, rows.length);
   }
 
   async function handleScroll() {
@@ -59,27 +43,30 @@
   }
 
   function handleKeydown(event) {
-    //console.log(event.keyCode);
     switch (event.keyCode) {
       case 8:
       case 37:
       case 75:
-        // entriesLoadPrevious();
+        if(start > 0) {
+          start--;
+          refresh();
+        }
         break;
       case 32:
       case 39:
       case 74:
-        //  entriesLoadNext();
+        start++;
+        refresh();
         break;
 
       case 71: // 'G' show last lines
         start = lines.length - 10;
-        refresh(lines);
+        refresh();
         break;
 
       case 103: // 'g' show first lines
         start = 0;
-        refresh(lines);
+        refresh();
         break;
     }
   }
