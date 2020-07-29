@@ -2,44 +2,38 @@
   import { onMount, tick } from "svelte";
 
   export let source;
-  export let height = "100%";
   export let lineHeight = 10;
 
-  let start = 0;
-  let end = 0;
+  const height = "100%";
 
   let viewport;
   let contents;
   let rows;
-
   let viewportHeight = 0;
-  let mounted;
 
-  let lines = [];
+  let start = 0;
+  const lines = [];
   let visible = lines;
 
   onMount(async () => {
-    mounted = true;
     rows = contents.getElementsByTagName("log-row");
 
     for await (const line of source) {
       lines.push(line);
       visible = lines;
+
+      //console.log("onMount", start, lines.length, rows.length);
     }
   });
 
-  $: if (mounted) refresh();
-
   async function refresh() {
     const { scrollTop } = viewport;
-    await tick();
-
-    console.log("refresh", start, end, lines.length, rows.length);
+    console.log("refresh", scrollTop, start, lines.length, rows.length);
   }
 
   async function handleScroll() {
     const { scrollTop } = viewport;
-    console.log("handleScroll", scrollTop);
+    console.log("handleScroll", scrollTop, start, lines.length, rows.length);
   }
 
   function handleKeydown(event) {
@@ -47,8 +41,9 @@
       case 8:
       case 37:
       case 75:
-        if(start > 0) {
+        if (start > 0) {
           start--;
+          visible = lines.slice(start, start + rows.length);
           refresh();
         }
         break;
@@ -56,16 +51,19 @@
       case 39:
       case 74:
         start++;
+        visible = lines.slice(start, start + rows.length);
         refresh();
         break;
 
       case 71: // 'G' show last lines
-        start = lines.length - 10;
+        start = lines.length - rows.length;
+        visible = lines.slice(start);
         refresh();
         break;
 
       case 103: // 'g' show first lines
         start = 0;
+        visible = lines.slice(start, rows.length);
         refresh();
         break;
     }
