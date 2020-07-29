@@ -2,7 +2,6 @@
   import { onMount, tick } from "svelte";
 
   export let source;
-  export let lineHeight = 10;
 
   const height = "100%";
 
@@ -12,28 +11,28 @@
   let viewportHeight = 0;
 
   let start = 0;
-  const lines = [];
-  let visible = lines;
+  const entries = [];
+  let visible = entries;
 
   onMount(async () => {
     rows = contents.getElementsByTagName("log-row");
 
-    for await (const line of source) {
-      lines.push(line);
-      visible = lines;
+    for await (const entry of source) {
+      entries.push(entry);
+      visible = entries;
 
-      //console.log("onMount", start, lines.length, rows.length);
+      //console.log("onMount", start, entries.length, rows.length);
     }
   });
 
   async function refresh() {
     const { scrollTop } = viewport;
-    console.log("refresh", scrollTop, start, lines.length, rows.length);
+    console.log("refresh", scrollTop, start, entries.length, rows.length);
   }
 
   async function handleScroll() {
     const { scrollTop } = viewport;
-    console.log("handleScroll", scrollTop, start, lines.length, rows.length);
+    console.log("handleScroll", scrollTop, start, entries.length, rows.length);
   }
 
   function handleKeydown(event) {
@@ -43,7 +42,7 @@
       case 75:
         if (start > 0) {
           start--;
-          visible = lines.slice(start, start + rows.length);
+          visible = entries.slice(start, start + rows.length);
           refresh();
         }
         break;
@@ -51,19 +50,19 @@
       case 39:
       case 74:
         start++;
-        visible = lines.slice(start, start + rows.length);
+        visible = entries.slice(start, start + rows.length);
         refresh();
         break;
 
-      case 71: // 'G' show last lines
-        start = lines.length - rows.length;
-        visible = lines.slice(start);
+      case 71: // 'G' show last entries
+        start = entries.length - rows.length;
+        visible = entries.slice(start);
         refresh();
         break;
 
-      case 103: // 'g' show first lines
+      case 103: // 'g' show first entries
         start = 0;
-        visible = lines.slice(start, rows.length);
+        visible = entries.slice(start, rows.length);
         refresh();
         break;
     }
@@ -91,11 +90,10 @@
   bind:offsetHeight={viewportHeight}
   on:scroll={handleScroll}
   style="height: {height};">
-
   <log-contents bind:this={contents}>
-    {#each visible as line, i (i)}
+    {#each visible as entry, i (i)}
       <log-row>
-        <slot {line} />
+        <slot {entry} />
       </log-row>
     {/each}
   </log-contents>
