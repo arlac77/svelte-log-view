@@ -8,7 +8,7 @@ export async function* lineIterator(reader) {
   let { value, done } = await reader.read();
 
   if(done) { return; }
-  
+ 
   const utf8Decoder = new TextDecoder("utf8");
 
   value = value ? utf8Decoder.decode(value) : "";
