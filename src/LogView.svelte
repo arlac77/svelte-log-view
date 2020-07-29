@@ -20,7 +20,7 @@
 
   onMount(async () => {
     mounted = true;
-    rows = contents.getElementsByTagName("virtual-list-row");
+    rows = contents.getElementsByTagName("log-row");
 
     for await (const line of source) {
       lines.push(line);
@@ -30,7 +30,7 @@
 
   $: if (mounted) refresh(lines);
 
-  async function refresh(items, first) {
+  async function refresh(items) {
     const { scrollTop } = viewport;
     await tick();
 
@@ -38,9 +38,13 @@
 
     let contentHeight = 0 - scrollTop;
 
-    for (end = start; end < rows.length && contentHeight < viewportHeight; end++, contentHeight += lineHeight) {
+    for (
+      end = start;
+      end < rows.length && contentHeight < viewportHeight;
+      end++, contentHeight += lineHeight
+    ) {
       let row = rows[end - start];
-      if(!row) {
+      if (!row) {
         await tick();
         line = rows[end - start];
 
@@ -82,32 +86,32 @@
 </script>
 
 <style>
-  virtual-list-viewport {
+  log-viewport {
     position: relative;
     overflow-y: auto;
     display: block;
   }
-  virtual-list-contents,
-  virtual-list-row {
+  log-contents,
+  log-row {
     display: block;
   }
-  virtual-list-row {
+  log-row {
     overflow: hidden;
   }
 </style>
 
 <svelte:window on:keydown={handleKeydown} />
-<virtual-list-viewport
+<log-viewport
   bind:this={viewport}
   bind:offsetHeight={viewportHeight}
   on:scroll={handleScroll}
   style="height: {height};">
 
-  <virtual-list-contents bind:this={contents}>
+  <log-contents bind:this={contents}>
     {#each visible as line, i (i)}
-      <virtual-list-row>
+      <log-row>
         <slot {line} />
-      </virtual-list-row>
+      </log-row>
     {/each}
-  </virtual-list-contents>
-</virtual-list-viewport>
+  </log-contents>
+</log-viewport>
