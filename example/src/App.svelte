@@ -7,7 +7,7 @@
     return lineIterator(response.body.getReader());
   }
 
-  let start;
+  let start = -1;
 </script>
 
 <style>

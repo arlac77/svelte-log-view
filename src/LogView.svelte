@@ -5,7 +5,7 @@
   export let start = 0;
   export let entries = [];
   export let visible = entries;
-  
+
   const height = "100%";
 
   let viewport;
