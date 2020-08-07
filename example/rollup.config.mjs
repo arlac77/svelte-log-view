@@ -26,7 +26,7 @@ export default {
             ctx.body = new Readable({
               encoding: "utf8",
               read(size) {
-                setTimeout(() => this.push(`line ${i++}\n`), 500);
+                setTimeout(() => this.push(`line ${i++}\n`), 300);
               }
             });
 
