@@ -6,6 +6,8 @@
     const response = await fetch("/api/log");
     return lineIterator(response.body.getReader());
   }
+
+  let start;
 </script>
 
 <style>
@@ -19,8 +21,9 @@
   {#await lines()}
     <p>...waiting</p>
   {:then source}
-    <LogView {source} let:entry>{entry}</LogView>
+    <LogView {source} let:entry bind:start>{entry}</LogView>
   {:catch error}
     <p style="color: red">{error.message}</p>
   {/await}
 </div>
+<p>showing {start}</p>

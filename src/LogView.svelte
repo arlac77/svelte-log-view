@@ -2,17 +2,16 @@
   import { onMount, tick } from "svelte";
 
   export let source;
-
+  export let start = 0;
+  export let entries = [];
+  export let visible = entries;
+  
   const height = "100%";
 
   let viewport;
   let contents;
   let rows;
   let viewportHeight = 0;
-
-  let start = 0;
-  const entries = [];
-  let visible = entries;
 
   onMount(async () => {
     rows = contents.getElementsByTagName("log-row");
