@@ -21,7 +21,7 @@
   {#await lines()}
     <p>...waiting</p>
   {:then source}
-    <LogView {source} let:entry bind:start>{entry}</LogView>
+    <LogView height="5em" {source} let:entry bind:start>{entry}</LogView>
   {:catch error}
     <p style="color: red">{error.message}</p>
   {/await}
