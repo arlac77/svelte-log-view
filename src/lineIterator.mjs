@@ -1,15 +1,15 @@
-
 /**
  * Produces lines from a reader
  * @param {Reader} reader
+ * @param {TextDecoder} decoder
  * @return {AsyncIterator<string>} lines
  */
-export async function* lineIterator(reader) {
+export async function* lineIterator(reader, decoder = new TextDecoder()) {
   let { value, done } = await reader.read();
 
-  if(done) { return; }
- 
-  const decoder = new TextDecoder();
+  if (done) {
+    return;
+  }
 
   value = value ? decoder.decode(value) : "";
 
@@ -25,10 +25,9 @@ export async function* lineIterator(reader) {
       const remainder = value.substr(startIndex);
       ({ value, done } = await reader.read());
 
-      if(value) {
+      if (value) {
         value = remainder + decoder.decode(value);
-      }
-      else {
+      } else {
         value = remainder;
       }
       startIndex = re.lastIndex = 0;
@@ -44,8 +43,8 @@ export async function* lineIterator(reader) {
 
 /**
  * Decodes json lines
- * @param {AsyncIterator<string>} source 
- * @return {AsyncIterator<Object>} decoded json 
+ * @param {AsyncIterator<string>} source
+ * @return {AsyncIterator<Object>} decoded json
  */
 export async function* decodeJson(source) {
   for await (const line of source) {
@@ -53,23 +52,24 @@ export async function* decodeJson(source) {
   }
 }
 
-function wait(msecs) { return new Promise(resolve => setTimeout(resolve, msecs)); }
+function wait(msecs) {
+  return new Promise(resolve => setTimeout(resolve, msecs));
+}
 
 /**
  * Throttle input
- * @param {AsyncIterator<any>} source 
+ * @param {AsyncIterator<any>} source
  * @param {number} rate in milliseconds per entry
- * @return {AsyncIterator<any>} source entries throttled 
+ * @return {AsyncIterator<any>} source entries throttled
  */
-export async function* throttle(source,rate=100) {
+export async function* throttle(source, rate = 100) {
   let last = 0;
   for await (const item of source) {
     const now = Date.now();
-    if(now < last + rate) {
+    if (now < last + rate) {
       await wait(last + rate - now);
     }
     last = now;
     yield item;
   }
 }
-
