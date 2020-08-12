@@ -33,6 +33,11 @@
 
   async function refresh(skip) {
     const { scrollTop } = viewport;
+    if(skip > entries.length - visibleRows) {
+      skip = entries.length - visibleRows;
+    }
+    if(skip < 0) { skip = 0; }
+    
     start = skip;
     visible = entries.slice(start, start + visibleRows);
 
@@ -45,25 +50,24 @@
   }
 
   function handleKeydown(event) {
-    switch (event.keyCode) {
-      case 8:
-      case 37:
-      case 75:
-        if (start > 0) {
-          refresh( start -1);
-        }
+    console.log(event.key);
+    switch (event.key) {
+      case "ArrowUp":
+        refresh( start - 1);
         break;
-      case 32:
-      case 39:
-      case 74:
+      case "ArrowDown":
         refresh( start + 1);
         break;
-
-      case 71: // 'G' show last entries
+      case "PageUp":
+        refresh( start - visibleRows);
+        break;
+      case "PageDown":
+        refresh( start + visibleRows);
+        break;
+      case "G":
         refresh(entries.length - visibleRows);
         break;
-
-      case 103: // 'g' show first entries
+      case "g":
         refresh(0);
         break;
     }
