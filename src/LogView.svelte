@@ -4,6 +4,7 @@
   export let source;
   export let start = 0;
   export let height = "100%";
+  export let visibleRows = 1000000;
   export let entries = [];
   export let visible = entries;
 
@@ -17,15 +18,25 @@
 
     for await (const entry of source) {
       entries.push(entry);
-      visible = entries;
+
+      if(entries.length <= visibleRows) {
+        visible = entries;
+      }
+      else {
+        start++;
+        visible = entries.slice(start);
+      }
 
       //console.log("onMount", start, entries.length, rows.length);
     }
   });
 
-  async function refresh() {
+  async function refresh(skip) {
     const { scrollTop } = viewport;
-    console.log("refresh", scrollTop, start, entries.length, rows.length);
+    start = skip;
+    visible = entries.slice(start, start + visibleRows);
+
+   // console.log("refresh", scrollTop, start, entries.length, rows.length);
   }
 
   async function handleScroll() {
@@ -39,29 +50,21 @@
       case 37:
       case 75:
         if (start > 0) {
-          start--;
-          visible = entries.slice(start, start + rows.length);
-          refresh();
+          refresh( start -1);
         }
         break;
       case 32:
       case 39:
       case 74:
-        start++;
-        visible = entries.slice(start, start + rows.length);
-        refresh();
+        refresh( start + 1);
         break;
 
       case 71: // 'G' show last entries
-        start = entries.length - rows.length;
-        visible = entries.slice(start);
-        refresh();
+        refresh(entries.length - visibleRows);
         break;
 
       case 103: // 'g' show first entries
-        start = 0;
-        visible = entries.slice(start, rows.length);
-        refresh();
+        refresh(0);
         break;
     }
   }
