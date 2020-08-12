@@ -9,9 +9,9 @@ export async function* lineIterator(reader) {
 
   if(done) { return; }
  
-  const utf8Decoder = new TextDecoder("utf8");
+  const decoder = new TextDecoder();
 
-  value = value ? utf8Decoder.decode(value) : "";
+  value = value ? decoder.decode(value) : "";
 
   const re = /\n|\r\n/gm;
   let startIndex = 0;
@@ -25,7 +25,12 @@ export async function* lineIterator(reader) {
       const remainder = value.substr(startIndex);
       ({ value, done } = await reader.read());
 
-      value = remainder + (value ? utf8Decoder.decode(value) : "");
+      if(value) {
+        value = remainder + decoder.decode(value);
+      }
+      else {
+        value = remainder;
+      }
       startIndex = re.lastIndex = 0;
       continue;
     }
