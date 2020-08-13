@@ -8,7 +8,7 @@
   export let entries = [];
   export let visible = entries;
   export let follow = true;
-  
+
   let viewport;
   let contents;
   let rows;
@@ -20,10 +20,9 @@
     for await (const entry of source) {
       entries.push(entry);
 
-      if(entries.length <= visibleRows) {
+      if (entries.length <= visibleRows) {
         visible = entries;
-      }
-      else if(follow) {
+      } else if (follow) {
         start++;
         visible = entries.slice(start);
       }
@@ -31,16 +30,17 @@
   });
 
   async function refresh(skip) {
-    const { scrollTop } = viewport;
-    if(skip > entries.length - visibleRows) {
+    if (skip > entries.length - visibleRows) {
       skip = entries.length - visibleRows;
     }
-    if(skip < 0) { skip = 0; }
-    
+    if (skip < 0) {
+      skip = 0;
+    }
+
     start = skip;
     visible = entries.slice(start, start + visibleRows);
 
-   // console.log("refresh", scrollTop, start, entries.length, rows.length);
+    // console.log("refresh", scrollTop, start, entries.length, rows.length);
   }
 
   async function handleScroll() {
@@ -52,16 +52,16 @@
     console.log(event.key);
     switch (event.key) {
       case "ArrowUp":
-        refresh( start - 1);
+        refresh(start - 1);
         break;
       case "ArrowDown":
-        refresh( start + 1);
+        refresh(start + 1);
         break;
       case "PageUp":
-        refresh( start - visibleRows);
+        refresh(start - visibleRows);
         break;
       case "PageDown":
-        refresh( start + visibleRows);
+        refresh(start + visibleRows);
         break;
       case "G":
         refresh(entries.length - visibleRows);
@@ -69,10 +69,13 @@
       case "g":
         refresh(0);
         break;
- 
+
       case "f":
         follow = !follow;
-      break;
+        if(follow) {
+          refresh(entries.length - visibleRows);
+        }
+        break;
     }
   }
 </script>

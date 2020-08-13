@@ -8,6 +8,7 @@
   }
 
   let start = -1;
+  let follow = true;
 </script>
 
 <style>
@@ -21,9 +22,9 @@
   {#await lines()}
     <p>...waiting</p>
   {:then source}
-    <LogView visibleRows={10} {source} let:entry bind:start>{entry}</LogView>
+    <LogView visibleRows={10} {source} let:entry bind:follow bind:start>{entry}</LogView>
   {:catch error}
     <p style="color: red">{error.message}</p>
   {/await}
 </div>
-<p>showing {start}</p>
+<p>showing {start} {follow ? 'F' : '-'}</p>
