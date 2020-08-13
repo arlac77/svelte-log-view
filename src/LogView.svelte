@@ -7,7 +7,8 @@
   export let visibleRows = 1000000;
   export let entries = [];
   export let visible = entries;
-
+  export let follow = true;
+  
   let viewport;
   let contents;
   let rows;
@@ -22,12 +23,10 @@
       if(entries.length <= visibleRows) {
         visible = entries;
       }
-      else {
+      else if(follow) {
         start++;
         visible = entries.slice(start);
       }
-
-      //console.log("onMount", start, entries.length, rows.length);
     }
   });
 
@@ -70,6 +69,10 @@
       case "g":
         refresh(0);
         break;
+ 
+      case "f":
+        follow = !follow;
+      break;
     }
   }
 </script>
