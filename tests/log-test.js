@@ -17,4 +17,10 @@ test("several lines", async t => {
 
   await t.pressKey("f");
   await t.expect(Selector("#follow").innerText).contains("F");
+
+  await t.pressKey("g");
+  await t.expect(Selector("#start").innerText).contains("0");
+
+  await t.pressKey("G");
+  await t.expect(Selector("#start").innerText).contains("0");
 });
