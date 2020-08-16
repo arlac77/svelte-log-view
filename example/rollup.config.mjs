@@ -27,7 +27,7 @@ export default {
               encoding: "utf8",
               read(size) {
                 if (i < 20) {
-                  setTimeout(() => this.push(`line ${i++}\n`), 200);
+                  setTimeout(() => this.push(`line ${i++}\n`), 120);
                 }
               }
             });

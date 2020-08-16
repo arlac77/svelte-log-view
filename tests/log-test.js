@@ -21,8 +21,10 @@ test("several lines", async t => {
   await t.wait(2000);
 
   await t.pressKey("g");
-  await t.expect(Selector("#start").innerText).contains(0);
+  await t.wait(200);
+  await t.expect(Selector("#start").innerText).contains("0");
 
-  //await t.pressKey("G");
-  //await t.expect(Selector("#start").innerText).gt(0);
+  await t.pressKey("G");
+  await t.wait(500);
+  await t.expect(Selector("#start").innerText).contains("9");
 });
