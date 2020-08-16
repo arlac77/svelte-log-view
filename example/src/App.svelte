@@ -27,4 +27,5 @@
     <p style="color: red">{error.message}</p>
   {/await}
 </div>
-<p>showing {start} {follow ? 'F' : '-'}</p>
+<p id="start">{start}</p>
+<p id="follow">{follow ? 'F' : '-'}</p>
