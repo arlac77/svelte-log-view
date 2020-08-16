@@ -39,8 +39,6 @@
 
     start = skip;
     visible = entries.slice(start, start + visibleRows);
-
-    // console.log("refresh", scrollTop, start, entries.length, rows.length);
   }
 
   async function handleScroll() {
