@@ -30,5 +30,5 @@ test("several lines", async t => {
 
   await t
   .expect(Selector("#log").innerText)
-  .contains("line 19\n");
+  .contains("line 19");
 });
