@@ -49,7 +49,6 @@
   }
 
   function handleKeydown(event) {
-    console.log(event.key);
     switch (event.key) {
       case "ArrowUp":
         refresh(start - 1);
