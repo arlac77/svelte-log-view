@@ -69,9 +69,6 @@
 
       case "f":
         follow = !follow;
-        if(follow) {
-          refresh(entries.length - visibleRows);
-        }
         break;
     }
   }
