@@ -35,6 +35,21 @@ export default {
             next();
           })
         );
+        app.use(
+          modules.router.get("/api/back/log", (ctx, next) => {
+            let i = 1;
+            ctx.body = new Readable({
+              encoding: "utf8",
+              read(size) {
+                if (i < 20) {
+                  setTimeout(() => this.push(`line -${i++}\n`), 120);
+                }
+              }
+            });
+
+            next();
+          })
+        );
       }
     }),
     resolve({
