@@ -1,5 +1,5 @@
 <script>
-  import { onMount, tick } from "svelte";
+  import { onMount } from "svelte";
 
   export let source;
   export let start = 0;
@@ -17,7 +17,7 @@
   onMount(async () => {
     rows = contents.getElementsByTagName("log-row");
 
-    for await (const entry of source) {
+    for await (const entry of source()) {
       entries.push(entry);
 
       if (entries.length <= visibleRows) {
@@ -29,15 +29,22 @@
     }
   });
 
-  async function refresh(skip) {
-    if (skip > entries.length - visibleRows) {
-      skip = entries.length - visibleRows;
+  async function refresh(firstLine) {
+    if (firstLine > entries.length - visibleRows) {
+      firstLine = entries.length - visibleRows;
     }
-    if (skip < 0) {
-      skip = 0;
+    if (firstLine < 0) {
+      for await (const entry of source(entries[0], -1)) {
+        entries.splice(0, 0, entry);
+
+        if (firstLine++ === 0) {
+          break;
+        }
+      }
+      firstLine = 0;
     }
 
-    start = skip;
+    start = firstLine;
     visible = entries.slice(start, start + visibleRows);
   }
 
