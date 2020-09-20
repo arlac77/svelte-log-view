@@ -1,6 +1,6 @@
 <script>
   import { onMount } from "svelte";
-  import { LogView, lineIterator } from "../../src/index.svelte";
+  import { LogView, lineIterator } from "../../../src/index.svelte";
 
   async function* source(cursor, number) {
     //if(cursor) { query = `?cursor=` + cursor.substring(5); }

@@ -1,6 +1,7 @@
 import resolve from "@rollup/plugin-node-resolve";
 import dev from "rollup-plugin-dev";
 import svelte from "rollup-plugin-svelte";
+import { Readable } from "stream";
 
 const port = 5000;
 
@@ -18,7 +19,39 @@ export default {
       port,
       dirs: [`${basedir}/public`],
       spa: `${basedir}/public/index.html`,
-      basePath: `/components/svelte-common/${basedir}`
+      basePath: `/components/svelte-log-view/${basedir}`,
+      extend(app, modules) {
+        app.use(
+          modules.router.get("/api/log", (ctx, next) => {
+            let i = 1;
+            ctx.body = new Readable({
+              encoding: "utf8",
+              read(size) {
+                if (i < 20) {
+                  setTimeout(() => this.push(`line ${i++}\n`), 120);
+                }
+              }
+            });
+
+            next();
+          })
+        );
+        app.use(
+          modules.router.get("/api/back/log", (ctx, next) => {
+            let i = 1;
+            ctx.body = new Readable({
+              encoding: "utf8",
+              read(size) {
+                if (i < 20) {
+                  setTimeout(() => this.push(`line -${i++}\n`), 120);
+                }
+              }
+            });
+
+            next();
+          })
+        );
+      }
     }),
     svelte(),
     resolve({
