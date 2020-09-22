@@ -8,6 +8,7 @@
   export let entries = [];
   export let visible = entries;
   export let follow = true;
+  export let selected = 0;
 
   let viewport;
   let contents;
@@ -30,6 +31,13 @@
   });
 
   async function refresh(firstLine) {
+    if (selected > entries.length - visibleRows) {
+      selected = entries.length - visibleRows;
+    }
+    if (selected < 0) {
+      selected = 0;
+    }
+
     if (firstLine > entries.length - visibleRows) {
       firstLine = entries.length - visibleRows;
     }
@@ -56,21 +64,31 @@
   function handleKeydown(event) {
     switch (event.key) {
       case "ArrowUp":
+        selected--;
         refresh(start - 1);
         break;
       case "ArrowDown":
+        selected++;
+
         refresh(start + 1);
         break;
       case "PageUp":
+        selected -= visibleRows;
+
         refresh(start - visibleRows);
         break;
       case "PageDown":
+        selected += visibleRows;
+
         refresh(start + visibleRows);
         break;
       case "G":
+        selected = entries.length - visibleRows;
+
         refresh(entries.length - visibleRows);
         break;
       case "g":
+        selected = 0;
         refresh(0);
         break;
 
@@ -105,7 +123,7 @@
   <log-contents bind:this={contents}>
     {#each visible as entry, i (i)}
       <log-row>
-        <slot {entry} />
+        <slot {entry} {selected} i={start + i} />
       </log-row>
     {/each}
   </log-contents>
