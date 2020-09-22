@@ -14,8 +14,8 @@ show log content
 
 ## Example
 
-Check out the code in the [example](/example) folder,
-or the [live example](https://arlac77.github.io/components/svelte-log-view/example/index.html).
+Check out the code in the [tests/app](/tests/app) folder,
+or the [live example](https://arlac77.github.io/components/svelte-log-view/tests/app/index.html).
 
 # API
 
