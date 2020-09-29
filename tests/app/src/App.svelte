@@ -13,23 +13,21 @@
 </script>
 
 <style>
-  #log {
-    max-height: 200px;
-    height: 200px;
+  .selected {
+    background-color: antiquewhite;
   }
 </style>
 
-<div id="log">
-  <LogView
-    visibleRows={10}
-    {source}
-    let:entry
-    let:selected
-    let:i
-    bind:follow
-    bind:start>
-    {#if selected === i}> {entry}{:else}{entry}{/if}
-  </LogView>
-</div>
+<LogView
+  visibleRows={10}
+  {source}
+  let:entry
+  let:selected
+  let:i
+  bind:follow
+  bind:start>
+  <div class={selected === i ? 'selected' : ''}>{entry}</div>
+</LogView>
+
 <p id="start">{start}</p>
 <p id="follow">{follow ? 'F' : '-'}</p>
