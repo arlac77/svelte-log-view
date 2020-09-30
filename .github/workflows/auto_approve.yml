@@ -7,4 +7,4 @@ jobs:
       - uses: hmarr/auto-approve-action@v2.0.0
         if: "github.actor == 'arlac77' ||\_github.actor == 'dependabot[bot]' || github.actor == 'dependabot-preview[bot]'"
         with:
-          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+          github-token: '${{ secrets.GITHUB_TOKEN }}'
