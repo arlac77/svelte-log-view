@@ -19,16 +19,17 @@
   }
 </style>
 
-<LogView
-  visibleRows={10}
-  {source}
-  let:entry
-  let:selected
-  let:i
-  bind:follow
-  bind:start>
-  <div class={selected === i ? 'selected' : ''}>{entry}</div>
-</LogView>
-
+<div id="log">
+  <LogView
+    visibleRows={10}
+    {source}
+    let:entry
+    let:selected
+    let:i
+    bind:follow
+    bind:start>
+    <div class={selected === i ? 'selected' : ''}>{entry}</div>
+  </LogView>
+</div>
 <p id="start">{start}</p>
 <p id="follow">{follow ? 'F' : '-'}</p>
