@@ -2,13 +2,13 @@
   import { onMount } from "svelte";
 
   export let source;
-  export let start = 0;
   export let height = "100%";
   export let visibleRows = 1000000;
   export let entries = [];
   export let visible = entries;
   export let follow = true;
   export let selected = 0;
+  export let start = 0;
 
   let viewport;
   let contents;
@@ -23,36 +23,47 @@
 
       if (entries.length <= visibleRows) {
         visible = entries;
-      } else if (follow) {
-        start++;
-        visible = entries.slice(start);
+      } else {
+        if (!follow) {
+          visible = entries.slice(start, visibleRows);
+        }
+      }
+
+      if (follow) {
+        refresh(entries.length - 1);
       }
     }
   });
 
-  async function refresh(firstLine) {
-    if (selected > entries.length - visibleRows) {
-      selected = entries.length - visibleRows;
+  async function refresh(toBeSelected) {
+    selected = toBeSelected;
+
+    if (selected > entries.length) {
+      selected = entries.length - 1;
+      start = entries.length - visibleRows;
     }
     if (selected < 0) {
-      selected = 0;
-    }
+      start = 0;
 
-    if (firstLine > entries.length - visibleRows) {
-      firstLine = entries.length - visibleRows;
-    }
-    if (firstLine < 0) {
       for await (const entry of source(entries[0], -1)) {
         entries.splice(0, 0, entry);
 
-        if (firstLine++ === 0) {
+        if (selected++ === 0) {
           break;
         }
       }
-      firstLine = 0;
+
+      selected = 0;
     }
 
-    start = firstLine;
+    if (selected < start) {
+      start = selected;
+    }
+
+    if (selected >= start + visibleRows) {
+      start = selected - visibleRows + 1
+    }
+
     visible = entries.slice(start, start + visibleRows);
   }
 
@@ -64,31 +75,21 @@
   function handleKeydown(event) {
     switch (event.key) {
       case "ArrowUp":
-        selected--;
-        refresh(start - 1);
+        refresh(selected - 1);
         break;
       case "ArrowDown":
-        selected++;
-
-        refresh(start + 1);
+        refresh(selected + 1);
         break;
       case "PageUp":
-        selected -= visibleRows;
-
-        refresh(start - visibleRows);
+        refresh(selected - visibleRows);
         break;
       case "PageDown":
-        selected += visibleRows;
-
-        refresh(start + visibleRows);
+        refresh(selected + visibleRows);
         break;
       case "G":
-        selected = entries.length - visibleRows;
-
-        refresh(entries.length - visibleRows);
+        refresh(entries.length - 1);
         break;
       case "g":
-        selected = 0;
         refresh(0);
         break;
 
