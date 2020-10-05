@@ -38,12 +38,19 @@ export default {
         );
         app.use(
           modules.router.get("/api/back/log", (ctx, next) => {
+            let line = 0;
+
+            const m = ctx.request.url.match(/\?cursor=(.+)/);
+            if(m) {
+              line = parseInt(m[1]);
+            }
+
             let i = 0;
             ctx.body = new Readable({
               encoding: "utf8",
               read(size) {
-                if (i > -20) {
-                  setTimeout(() => this.push(`line ${i--}\n`), 120);
+                if (i++ < 20) {
+                  setTimeout(() => this.push(`line ${--line}\n`), 120);
                 }
               }
             });

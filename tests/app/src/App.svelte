@@ -3,8 +3,8 @@
   import { LogView } from "../../../src/index.svelte";
 
   async function* source(cursor, number) {
-    //if(cursor) { query = `?cursor=` + cursor.substring(5); }
-    const response = await fetch(number < 0 ? "/api/back/log" : "/api/log");
+    const query = cursor ? `?cursor=` + cursor.substring(5) : '';
+    const response = await fetch(number < 0 ? `/api/back/log${query}` : "/api/log");
     yield* lineIterator(response.body.getReader());
   }
 
