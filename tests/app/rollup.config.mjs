@@ -23,34 +23,33 @@ export default {
       extend(app, modules) {
         app.use(
           modules.router.get("/api/log", (ctx, next) => {
-            let i = 1;
-            ctx.body = new Readable({
-              encoding: "utf8",
-              read(size) {
-                if (i < 20) {
-                  setTimeout(() => this.push(`line ${i++}\n`), 120);
-                }
-              }
-            });
-
-            next();
-          })
-        );
-        app.use(
-          modules.router.get("/api/back/log", (ctx, next) => {
             let line = 0;
+            let increment = 1;
+            let number = 20;
 
-            const m = ctx.request.url.match(/\?cursor=(.+)/);
-            if(m) {
+            let m = ctx.request.url.match(/cursor=(.+)/);
+            if (m) {
               line = parseInt(m[1]);
+            }
+
+            m = ctx.request.url.match(/number=(.+)/);
+            if (m) {
+              number = parseInt(m[1]);
+              if (number < 0) {
+                increment = -1;
+                number = -number;
+              }
             }
 
             let i = 0;
             ctx.body = new Readable({
               encoding: "utf8",
               read(size) {
-                if (i++ < 20) {
-                  setTimeout(() => this.push(`line ${--line}\n`), 120);
+                if (i++ < number) {
+                  setTimeout(
+                    () => this.push(`line ${(line += increment)}\n`),
+                    120
+                  );
                 }
               }
             });

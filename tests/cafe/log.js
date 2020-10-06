@@ -25,16 +25,19 @@ test("several lines", async t => {
   await t.click(log).pressKey("g");
   await t.wait(200);
   await t.expect(Selector("#start").innerText).contains("0");
+  await t.expect(Selector("#selected").innerText).contains("0");
 
   await t.click(log).pressKey("down");
   await t.wait(200);
   await t.click(log).pressKey("down");
   await t.wait(200);
   await t.expect(Selector("#log").innerText).contains("line 3");
+  await t.expect(Selector("#selected").innerText).contains("2");
 
   await t.click(log).pressKey("G");
   await t.wait(500);
-  await t.expect(Selector("#start").innerText).contains("9");
+  await t.expect(Selector("#start").innerText).contains("10");
+  await t.expect(Selector("#selected").innerText).contains("19");
 
   await t.expect(Selector("#log").innerText).contains("line 19");
 });

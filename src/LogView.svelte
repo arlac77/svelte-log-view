@@ -38,22 +38,17 @@
   async function refresh(toBeSelected) {
     selected = toBeSelected;
 
-    if (selected > entries.length) {
+    if (selected > entries.length -1) {
       selected = entries.length - 1;
       start = entries.length - visibleRows;
     }
     if (selected < 0) {
       start = 0;
-
-      for await (const entry of source(entries[0], -1)) {
-        entries.splice(0, 0, entry);
-
-        if (selected++ === 0) {
-          break;
-        }
-      }
-
+      const number = selected;
       selected = 0;
+      for await (const entry of source(entries[0], number)) {
+        entries.splice(0, 0, entry);
+      }
     }
 
     if (selected < start) {
@@ -124,7 +119,7 @@
   <log-contents bind:this={contents}>
     {#each visible as entry, i (i)}
       <log-row>
-        <slot {entry} {selected} i={start + i} />
+        <slot {entry} {selected} position={start + i} />
       </log-row>
     {/each}
   </log-contents>

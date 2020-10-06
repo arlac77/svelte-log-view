@@ -3,8 +3,19 @@
   import { LogView } from "../../../src/index.svelte";
 
   async function* source(cursor, number) {
-    const query = cursor ? `?cursor=` + cursor.substring(5) : '';
-    const response = await fetch(number < 0 ? `/api/back/log${query}` : "/api/log");
+    const params = {
+      number
+    };
+
+    if (cursor) {
+      params.cursor = cursor.substring(5);
+    }
+
+    const search = Object.entries(params)
+      .map(([k, v]) => `${k}${v === undefined ? "" : "=" + escape(v)}`)
+      .join("&");
+
+    const response = await fetch(`/api/log?${search}`);
     yield* lineIterator(response.body.getReader());
   }
 
@@ -24,12 +35,13 @@
     visibleRows={10}
     {source}
     let:entry
-    let:selected
-    let:i
+    let:position
+    bind:selected
     bind:follow
     bind:start>
-    <div class={selected === i ? 'selected' : ''}>{entry}</div>
+    <div class={selected === position ? 'selected' : ''}>{entry}</div>
   </LogView>
 </div>
 <p id="start">{start}</p>
+<p id="selected">{selected}</p>
 <p id="follow">{follow ? 'F' : '-'}</p>
