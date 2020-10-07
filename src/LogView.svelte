@@ -48,6 +48,7 @@
       selected = 0;
       for await (const entry of source(entries[0], number)) {
         entries.splice(0, 0, entry);
+        visible = entries.slice(start, start + visibleRows);
       }
     }
 
