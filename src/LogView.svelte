@@ -1,5 +1,5 @@
 <script>
-  import { onMount } from "svelte";
+  import { onMount, onDestroy } from "svelte";
 
   export let source;
   export let height = "100%";
@@ -10,15 +10,15 @@
   export let selected = 0;
   export let start = 0;
 
-  let viewport;
   let contents;
   let rows;
-  let viewportHeight = 0;
+
+  onDestroy(() => source.abort());
 
   onMount(async () => {
     rows = contents.getElementsByTagName("log-row");
 
-    for await (const entry of source()) {
+    for await (const entry of source.fetch()) {
       entries.push(entry);
 
       if (entries.length <= visibleRows) {
@@ -46,7 +46,7 @@
       start = 0;
       const number = selected;
       selected = 0;
-      for await (const entry of source(entries[0], number)) {
+      for await (const entry of source.fetch(entries[0], number)) {
         entries.splice(0, 0, entry);
         visible = entries.slice(start, start + visibleRows);
       }
@@ -61,11 +61,6 @@
     }
 
     visible = entries.slice(start, start + visibleRows);
-  }
-
-  async function handleScroll() {
-    const { scrollTop } = viewport;
-    console.log("handleScroll", scrollTop, start, entries.length, rows.length);
   }
 
   function handleKeydown(event) {
@@ -113,9 +108,6 @@
 
 <svelte:window on:keydown={handleKeydown} />
 <log-viewport
-  bind:this={viewport}
-  bind:offsetHeight={viewportHeight}
-  on:scroll={handleScroll}
   style="height: {height};">
   <log-contents bind:this={contents}>
     {#each visible as entry, i (i)}

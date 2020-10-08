@@ -2,22 +2,44 @@
   import { lineIterator } from "reader-line-iterator";
   import { LogView } from "../../../src/index.svelte";
 
-  async function* source(cursor, number) {
-    const params = {
-      number
-    };
+  let controller = new AbortController();
 
-    if (cursor) {
-      params.cursor = cursor.substring(5);
-    }
+  const source = {
+    abort: async () => controller.abort(),
 
-    const search = Object.entries(params)
-      .map(([k, v]) => `${k}${v === undefined ? "" : "=" + escape(v)}`)
-      .join("&");
+    fetch: async function * f(cursor, number) {
 
-    const response = await fetch(`/api/log?${search}`);
-    yield* lineIterator(response.body.getReader());
-  }
+        if(controller) {
+          controller.abort();
+        }
+
+        controller = new AbortController();
+
+        const params = {
+          number
+        };
+
+        if (cursor) {
+          params.cursor = cursor.substring(5);
+        }
+
+        const search = Object.entries(params)
+          .map(([k, v]) => `${k}${v === undefined ? "" : "=" + escape(v)}`)
+          .join("&");
+
+        try {
+          const response = await fetch(`/api/log?${search}`, {
+            signal: controller.signal
+          });
+
+          yield * lineIterator(response.body.getReader());
+        } catch (e) {
+          if (!e instanceof AbortSignal) {
+            throw e;
+          }
+        }
+      }
+  };
 
   let start = 0;
   let follow = true;
