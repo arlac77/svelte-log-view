@@ -25,7 +25,7 @@
       current = entries[entries.length - 1];
     }
 
-    for await (const entry of source.fetch(current)) {
+    for await (const entry of source.fetch(current, 1)) {
       entries.push(entry);
 
       if (entries.length <= visibleRows) {
@@ -51,9 +51,10 @@
     }
     if (selected < 0) {
       start = 0;
-      const number = selected;
       selected = 0;
-      for await (const entry of source.fetch(entries[0], number)) {
+
+      let number = 1;
+      for await (const entry of source.fetch(entries[0], -number, number)) {
         entries.splice(0, 0, entry);
         visible = entries.slice(start, start + visibleRows);
       }
