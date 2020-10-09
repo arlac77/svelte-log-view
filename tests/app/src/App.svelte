@@ -6,39 +6,37 @@
 
   const source = {
     abort: async () => controller.abort(),
+    fetch: async function* (cursor, number) {
+      if (controller) {
+        controller.abort();
+      }
 
-    fetch: async function * f(cursor, number) {
+      controller = new AbortController();
 
-        if(controller) {
-          controller.abort();
-        }
+      const params = {
+        number
+      };
 
-        controller = new AbortController();
+      if (cursor) {
+        params.cursor = cursor.substring(5);
+      }
 
-        const params = {
-          number
-        };
+      const search = Object.entries(params)
+        .map(([k, v]) => `${k}${v === undefined ? "" : "=" + escape(v)}`)
+        .join("&");
 
-        if (cursor) {
-          params.cursor = cursor.substring(5);
-        }
+      try {
+        const response = await fetch(`/api/log?${search}`, {
+          signal: controller.signal
+        });
 
-        const search = Object.entries(params)
-          .map(([k, v]) => `${k}${v === undefined ? "" : "=" + escape(v)}`)
-          .join("&");
-
-        try {
-          const response = await fetch(`/api/log?${search}`, {
-            signal: controller.signal
-          });
-
-          yield * lineIterator(response.body.getReader());
-        } catch (e) {
-          if (!e instanceof AbortSignal) {
-            throw e;
-          }
+        yield* lineIterator(response.body.getReader());
+      } catch (e) {
+        if (!e instanceof AbortSignal) {
+          throw e;
         }
       }
+    }
   };
 
   let start = 0;

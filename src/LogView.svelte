@@ -2,7 +2,6 @@
   import { onMount, onDestroy } from "svelte";
 
   export let source;
-  export let height = "100%";
   export let visibleRows = 1000000;
   export let entries = [];
   export let visible = entries;
@@ -17,8 +16,16 @@
 
   onMount(async () => {
     rows = contents.getElementsByTagName("log-row");
+    fetchFollow();
+  });
 
-    for await (const entry of source.fetch()) {
+  async function fetchFollow() {
+    let current;
+    if (entries.length > 0) {
+      current = entries[entries.length - 1];
+    }
+
+    for await (const entry of source.fetch(current)) {
       entries.push(entry);
 
       if (entries.length <= visibleRows) {
@@ -33,12 +40,12 @@
         refresh(entries.length - 1);
       }
     }
-  });
+  }
 
   async function refresh(toBeSelected) {
     selected = toBeSelected;
 
-    if (selected > entries.length -1) {
+    if (selected > entries.length - 1) {
       selected = entries.length - 1;
       start = entries.length - visibleRows;
     }
@@ -57,63 +64,77 @@
     }
 
     if (selected >= start + visibleRows) {
-      start = selected - visibleRows + 1
+      start = selected - visibleRows + 1;
     }
 
     visible = entries.slice(start, start + visibleRows);
   }
 
+  function setFollow(flag) {
+    if (follow === flag) {
+      return;
+    }
+
+    if (flag) {
+      fetchFollow();
+    } else {
+      source.abort();
+    }
+
+    follow = flag;
+  }
+
   function handleKeydown(event) {
     switch (event.key) {
       case "ArrowUp":
+        setFollow(false);
         refresh(selected - 1);
         break;
       case "ArrowDown":
+        setFollow(false);
         refresh(selected + 1);
         break;
       case "PageUp":
+        setFollow(false);
         refresh(selected - visibleRows);
         break;
       case "PageDown":
+        setFollow(false);
         refresh(selected + visibleRows);
         break;
       case "G":
+        setFollow(false);
         refresh(entries.length - 1);
         break;
       case "g":
+        setFollow(false);
         refresh(0);
         break;
 
       case "f":
-        follow = !follow;
+        setFollow(!follow);
         break;
     }
   }
 </script>
 
 <style>
-  log-viewport {
+  log-contents {
     position: relative;
     overflow-y: auto;
     display: block;
   }
-  log-contents,
   log-row {
     display: block;
-  }
-  log-row {
     overflow: hidden;
   }
 </style>
 
 <svelte:window on:keydown={handleKeydown} />
-<log-viewport
-  style="height: {height};">
-  <log-contents bind:this={contents}>
-    {#each visible as entry, i (i)}
-      <log-row>
-        <slot {entry} {selected} position={start + i} />
-      </log-row>
-    {/each}
-  </log-contents>
-</log-viewport>
+<log-contents bind:this={contents}>
+  {#each visible as entry, i (i)}
+    <log-row>
+      <slot {entry} {selected} position={start + i} />
+    </log-row>
+  {/each}
+</log-contents>
