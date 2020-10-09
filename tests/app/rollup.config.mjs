@@ -41,7 +41,7 @@ export default {
                 if (i++ < number) {
                   setTimeout(
                     () => this.push(`line ${(line ++)}\n`),
-                    120
+                    80
                   );
                 }
               }

@@ -50,12 +50,28 @@
       start = entries.length - visibleRows;
     }
     if (selected < 0) {
-      start = 0;
-      selected = 0;
+      // start = 0;
+      // selected = 0;
 
-      let number = 1;
-      for await (const entry of source.fetch(entries[0], -number, number)) {
-        entries.splice(0, 0, entry);
+      const cursor = entries[0];
+
+      let number = 5;
+
+      let i = 0;
+
+      for (i = 0; i < number; i++) {
+        entries.unshift(undefined);
+      }
+
+      selected += number;
+      start += number;
+
+      i = 0;
+      for await (const entry of source.fetch(cursor, -number, number)) {
+        entries[i++] = entry;
+        if (i >= number) {
+          break;
+        }
         visible = entries.slice(start, start + visibleRows);
       }
     }
