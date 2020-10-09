@@ -6,7 +6,7 @@
 
   const source = {
     abort: async () => controller.abort(),
-    fetch: async function* (cursor, number) {
+    fetch: async function* (cursor, offset, number) {
       if (controller) {
         controller.abort();
       }
@@ -14,6 +14,7 @@
       controller = new AbortController();
 
       const params = {
+        offset,
         number
       };
 
@@ -21,12 +22,8 @@
         params.cursor = cursor.substring(5);
       }
 
-      const search = Object.entries(params)
-        .map(([k, v]) => `${k}${v === undefined ? "" : "=" + escape(v)}`)
-        .join("&");
-
       try {
-        const response = await fetch(`/api/log?${search}`, {
+        const response = await fetch(`/api/log?${new URLSearchParams(Object.entries(params))}`, {
           signal: controller.signal
         });
 

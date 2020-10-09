@@ -23,23 +23,16 @@ export default {
       extend(app, modules) {
         app.use(
           modules.router.get("/api/log", (ctx, next) => {
-            let line = 0;
-            let increment = 1;
-            let number = 20;
 
-            let m = ctx.request.url.match(/cursor=(.+)/);
-            if (m) {
-              line = parseInt(m[1]);
-            }
+            const params = new URLSearchParams(
+              ctx.request.url.replace(/^[^\?]+\?/, "")
+            );
 
-            m = ctx.request.url.match(/number=(.+)/);
-            if (m) {
-              number = parseInt(m[1]);
-              if (number < 0) {
-                increment = -1;
-                number = -number;
-              }
-            }
+            let line = parseInt(params.get("cursor")) || 0;
+            const offset = parseInt(params.get("offset")) || 0;
+            let number = parseInt(params.get("number")) || 20;
+
+            line += offset;
 
             let i = 0;
             ctx.body = new Readable({
@@ -47,7 +40,7 @@ export default {
               read(size) {
                 if (i++ < number) {
                   setTimeout(
-                    () => this.push(`line ${(line += increment)}\n`),
+                    () => this.push(`line ${(line ++)}\n`),
                     120
                   );
                 }
