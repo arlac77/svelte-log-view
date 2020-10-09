@@ -23,7 +23,6 @@ export default {
       extend(app, modules) {
         app.use(
           modules.router.get("/api/log", (ctx, next) => {
-
             const params = new URLSearchParams(
               ctx.request.url.replace(/^[^\?]+\?/, "")
             );
@@ -39,13 +38,12 @@ export default {
               encoding: "utf8",
               read(size) {
                 if (i++ < number) {
-                  setTimeout(
-                    () => this.push(`line ${(line ++)}\n`),
-                    80
-                  );
+                  setTimeout(() => this.push(`line ${line++}\n`), 80);
                 }
               }
             });
+
+            //setTimeout(() => ctx.body.cancel(), 5000);
 
             next();
           })

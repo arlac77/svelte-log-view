@@ -40,6 +40,9 @@
         setSelected(entries.length - 1);
       }
     }
+
+
+    follow = false;
   }
 
   async function setSelected(toBeSelected) {
