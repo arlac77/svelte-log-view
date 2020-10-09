@@ -37,12 +37,12 @@
       }
 
       if (follow) {
-        refresh(entries.length - 1);
+        setSelected(entries.length - 1);
       }
     }
   }
 
-  async function refresh(toBeSelected) {
+  async function setSelected(toBeSelected) {
     selected = toBeSelected;
 
     if (selected > entries.length - 1) {
@@ -50,14 +50,10 @@
       start = entries.length - visibleRows;
     }
     if (selected < 0) {
-      // start = 0;
-      // selected = 0;
-
       const cursor = entries[0];
 
       let number = 5;
-
-      let i = 0;
+      let i;
 
       for (i = 0; i < number; i++) {
         entries.unshift(undefined);
@@ -105,27 +101,27 @@
     switch (event.key) {
       case "ArrowUp":
         setFollow(false);
-        refresh(selected - 1);
+        setSelected(selected - 1);
         break;
       case "ArrowDown":
         setFollow(false);
-        refresh(selected + 1);
+        setSelected(selected + 1);
         break;
       case "PageUp":
         setFollow(false);
-        refresh(selected - visibleRows);
+        setSelected(selected - visibleRows);
         break;
       case "PageDown":
         setFollow(false);
-        refresh(selected + visibleRows);
+        setSelected(selected + visibleRows);
         break;
       case "G":
         setFollow(false);
-        refresh(entries.length - 1);
+        setSelected(entries.length - 1);
         break;
       case "g":
         setFollow(false);
-        refresh(0);
+        setSelected(0);
         break;
 
       case "f":
