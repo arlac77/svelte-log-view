@@ -25,7 +25,7 @@
     "test:cafe": "testcafe $BROWSER:headless tests/cafe/*.js -s build/test --app-init-delay 1000 --app \"rollup -c tests/app/rollup.config.mjs -w\""
   },
   "devDependencies": {
-    "@rollup/plugin-node-resolve": "^9.0.0",
+    "@rollup/plugin-node-resolve": "^10.0.0",
     "reader-line-iterator": "^1.0.0",
     "rollup": "^2.32.1",
     "rollup-plugin-dev": "^1.1.2",
