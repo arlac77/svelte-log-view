@@ -1,3 +1,5 @@
+import virtual from "@rollup/plugin-virtual";
+
 import resolve from "@rollup/plugin-node-resolve";
 import dev from "rollup-plugin-dev";
 import svelte from "rollup-plugin-svelte";
@@ -14,47 +16,47 @@ export default {
     format: "esm",
     file: `${basedir}/public/bundle.main.mjs`
   },
-  plugins: [
-    dev({
-      port,
-      dirs: [`${basedir}/public`],
-      spa: `${basedir}/public/index.html`,
-      basePath: `/components/svelte-log-view/${basedir}`,
-      extend(app, modules) {
-        app.use(
-          modules.router.get("/api/log", (ctx, next) => {
-            const params = new URLSearchParams(
-              ctx.request.url.replace(/^[^\?]+\?/, "")
-            );
+  plugins: [dev({
+    port,
+    dirs: [`${basedir}/public`],
+    spa: `${basedir}/public/index.html`,
+    basePath: `/components/svelte-log-view/${basedir}`,
+    extend(app, modules) {
+      app.use(
+        modules.router.get("/api/log", (ctx, next) => {
+          const params = new URLSearchParams(
+            ctx.request.url.replace(/^[^\?]+\?/, "")
+          );
 
-            let line = parseInt(params.get("cursor")) || 0;
-            const offset = parseInt(params.get("offset")) || 0;
-            let number = parseInt(params.get("number")) || 20;
+          let line = parseInt(params.get("cursor")) || 0;
+          const offset = parseInt(params.get("offset")) || 0;
+          let number = parseInt(params.get("number")) || 20;
 
-            line += offset;
+          line += offset;
 
-            let i = 0;
-            ctx.body = new Readable({
-              encoding: "utf8",
-              read(size) {
-                if (i++ < number) {
-                  setTimeout(() => this.push(`line ${line++}\n`), 80);
-                }
+          let i = 0;
+          ctx.body = new Readable({
+            encoding: "utf8",
+            read(size) {
+              if (i++ < number) {
+                setTimeout(() => this.push(`line ${line++}\n`), 80);
               }
-            });
+            }
+          });
 
-            //setTimeout(() => ctx.body.cancel(), 5000);
+          //setTimeout(() => ctx.body.cancel(), 5000);
 
-            next();
-          })
-        );
-      }
-    }),
-    svelte(),
-    resolve({
-      browser: true,
-      dedupe: importee =>
-        importee === "svelte" || importee.startsWith("svelte/")
-    })
-  ]
+          next();
+        })
+      );
+    }
+  }), svelte(), resolve({
+    browser: true,
+    dedupe: importee =>
+      importee === "svelte" || importee.startsWith("svelte/")
+  }), virtual({
+    "node-fetch": "export default fetch",
+    stream: "export class Readable {}",
+    buffer: "export class Buffer {}"
+  })]
 };
