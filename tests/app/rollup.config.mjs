@@ -31,7 +31,7 @@ export default {
       port,
       dirs: [`${basedir}/public`],
       spa: `${basedir}/public/index.html`,
-      basePath: `/components/svelte-log-view/${basedir}`,
+      basePath: "/",
       extend(app, modules) {
         app.use(
           modules.router.get("/api/log", (ctx, next) => {
