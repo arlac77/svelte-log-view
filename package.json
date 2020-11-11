@@ -45,6 +45,13 @@
   },
   "homepage": "https://github.com/arlac77/svelte-log-view#readme",
   "template": {
+    "properties": {
+      "netlifly": {
+        "site": {
+          "uuid": "07bdbff0-0bb8-49e0-b60e-ff1f4f2a0009"
+        }
+      }
+    },
     "inheritFrom": [
       "arlac77/template-arlac77-github",
       "arlac77/template-netlify",
