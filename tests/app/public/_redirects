@@ -1,2 +1,2 @@
-/api/log /.netlify/functions/log 200
+/api/log https://svelte-log-view.markus-felten.workers.dev/ 200
 /* /index.html 200
