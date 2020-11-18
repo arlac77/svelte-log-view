@@ -41,7 +41,7 @@ export default {
 
             let line = parseInt(params.get("cursor")) || 0;
             const offset = parseInt(params.get("offset")) || 0;
-            let number = parseInt(params.get("number")) || 20;
+            const number = parseInt(params.get("number")) || 20;
 
             line += offset;
 
