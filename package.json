@@ -23,11 +23,15 @@
     "start": "rollup -c tests/app/rollup.config.mjs -w",
     "test": "npm run test:cafe",
     "test:cafe": "testcafe $BROWSER:headless tests/cafe/*.js -s build/test --app-init-delay 1000 --app \"rollup -c tests/app/rollup.config.mjs -w\"",
+    "docs": "documentation readme ./src/index.svelte --section=API",
+    "lint": "npm run lint:docs",
+    "lint:docs": "documentation lint ./src/index.svelte",
     "build": "rollup -c tests/app/rollup.config.mjs"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^10.0.0",
     "@rollup/plugin-virtual": "^2.0.3",
+    "documentation": "github:arlac77/documentation",
     "reader-line-iterator": "^1.0.0",
     "rollup": "^2.33.3",
     "rollup-plugin-dev": "^1.1.3",
