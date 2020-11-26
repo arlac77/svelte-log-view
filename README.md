@@ -3,7 +3,6 @@
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 [![minified size](https://badgen.net/bundlephobia/min/svelte-log-view)](https://bundlephobia.com/result?p=svelte-log-view)
 [![downloads](http://img.shields.io/npm/dm/svelte-log-view.svg?style=flat-square)](https://npmjs.org/package/svelte-log-view)
-[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/arlac77/svelte-log-view.git)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/07bdbff0-0bb8-49e0-b60e-ff1f4f2a0009/deploy-status)](https://app.netlify.com/sites/svelte-log-view/deploys)
 
 # svelte-log-view
