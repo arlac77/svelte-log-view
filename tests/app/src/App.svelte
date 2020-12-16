@@ -1,4 +1,5 @@
 <script>
+  import * as style from "./main.css";
   import { lineIterator } from "reader-line-iterator";
   import { LogView } from "../../../src/index.svelte";
 
@@ -23,9 +24,12 @@
       }
 
       try {
-        const response = await fetch(`/api/log?${new URLSearchParams(Object.entries(params))}`, {
-          signal: controller.signal
-        });
+        const response = await fetch(
+          `/api/log?${new URLSearchParams(Object.entries(params))}`,
+          {
+            signal: controller.signal
+          }
+        );
 
         yield* lineIterator(response.body.getReader());
       } catch (e) {
@@ -40,12 +44,6 @@
   let follow = true;
   let selected = -1;
 </script>
-
-<style>
-  .selected {
-    background-color: antiquewhite;
-  }
-</style>
 
 <div id="log">
   <LogView
