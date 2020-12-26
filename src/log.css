@@ -1,0 +1,10 @@
+log-contents {
+  position: relative;
+  overflow-y: auto;
+  display: block;
+}
+
+log-row {
+  display: block;
+  overflow: hidden;
+}

@@ -134,18 +134,6 @@
   }
 </script>
 
-<style>
-  log-contents {
-    position: relative;
-    overflow-y: auto;
-    display: block;
-  }
-  log-row {
-    display: block;
-    overflow: hidden;
-  }
-</style>
-
 <svelte:window on:keydown={handleKeydown} />
 <log-contents bind:this={contents}>
   {#each visible as entry, i (i)}
