@@ -30,7 +30,9 @@ export default {
       plugins: [postcssImport]
     }),
     svelte({
-      dev: !production
+      compilerOptions: {
+        dev: !production
+      }
     }),
     resolve({
       browser: true,
