@@ -9,6 +9,7 @@
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 [![Known Vulnerabilities](https://snyk.io/test/github/arlac77/svelte-log-view/badge.svg)](https://snyk.io/test/github/arlac77/svelte-log-view)
 [![Coverage Status](https://coveralls.io/repos/arlac77/svelte-log-view/badge.svg)](https://coveralls.io/github/arlac77/svelte-log-view)
+[![Tested with TestCafe](https://img.shields.io/badge/tested%20with-TestCafe-2fa4cf.svg)](https://github.com/DevExpress/testcafe)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/07bdbff0-0bb8-49e0-b60e-ff1f4f2a0009/deploy-status)](https://app.netlify.com/sites/svelte-log-view/deploys)
 
 # svelte-log-view
