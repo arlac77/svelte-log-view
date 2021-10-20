@@ -33,7 +33,7 @@
     "@rollup/plugin-virtual": "^2.0.3",
     "documentation": "^13.2.5",
     "mf-styling": "arlac77/mf-styling",
-    "postcss": "^8.3.9",
+    "postcss": "^8.3.10",
     "postcss-import": "^14.0.2",
     "reader-line-iterator": "^1.1.2",
     "rollup": "^2.58.0",
