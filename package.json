@@ -64,6 +64,9 @@
       "arlac77/template-arlac77-github",
       "arlac77/template-netlify",
       "arlac77/template-svelte-component"
+    ],
+    "usedBy": [
+      "arlac77/svelte-session-manager"
     ]
   }
 }
