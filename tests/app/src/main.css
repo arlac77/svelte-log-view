@@ -1,5 +1,5 @@
-@import "mf-styling/color.css";
-@import "mf-styling/log.css";
+@import "mf-styling/src/color.css";
+@import "mf-styling/src/log.css";
 @import "../../../src/log.css";
 
 .selected {
