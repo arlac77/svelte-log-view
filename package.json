@@ -32,7 +32,7 @@
     "@rollup/plugin-node-resolve": "^13.2.1",
     "@rollup/plugin-virtual": "^2.1.0",
     "documentation": "^13.2.5",
-    "mf-styling": "^1.2.13",
+    "mf-styling": "^1.2.16",
     "postcss": "^8.4.12",
     "postcss-import": "^14.1.0",
     "reader-line-iterator": "^1.1.2",
