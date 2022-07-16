@@ -1,8 +1,8 @@
 import { Selector } from "testcafe";
 
-const base = "http://localhost:5000";
+const base = "http://localhost:5173/examples/svelte-log-view/";
 
-fixture`log`.page`${base}/index.html`;
+fixture`log`.page`${base}`;
 
 test("several lines", async t => {
   await t.wait(2000);
