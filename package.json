@@ -10,6 +10,7 @@
     "component",
     "log",
     "svelte",
+    "vite",
     "web"
   ],
   "contributors": [
@@ -20,29 +21,29 @@
   ],
   "license": "BSD-2-Clause",
   "scripts": {
-    "start": "rollup -c tests/app/rollup.config.mjs -w",
+    "prepare": "vite build",
+    "start": "vite",
     "test": "npm run test:cafe",
-    "test:cafe": "testcafe $BROWSER:headless tests/cafe/*.js -s build/test --page-request-timeout 9000 --app-init-delay 3000 --app \"rollup -c tests/app/rollup.config.mjs -w\"",
-    "docs": "documentation readme --section=API ./src/**/*.mjs",
+    "test:cafe": "testcafe $BROWSER:headless tests/cafe/*.js -s build/test --page-request-timeout 9000 --app-init-delay 3000 --app vite",
+    "docs": "documentation readme --section=API ./src/**/*.mjs && documentation readme --section=API {{javascript.source}}",
     "lint": "npm run lint:docs",
-    "lint:docs": "documentation lint ./src/**/*.mjs",
-    "build": "rollup -c tests/app/rollup.config.mjs"
+    "lint:docs": "documentation lint ./src/**/*.mjs && documentation lint {{javascript.source}}",
+    "build": "rollup -c tests/app/rollup.config.mjs",
+    "preview": "vite preview"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^13.3.0",
     "@rollup/plugin-virtual": "^2.1.0",
+    "@sveltejs/vite-plugin-svelte": "^1.0.1",
     "documentation": "^13.2.5",
     "mf-styling": "^1.2.31",
-    "postcss": "^8.4.14",
-    "postcss-import": "^14.1.0",
     "reader-line-iterator": "^1.1.2",
     "rollup": "^2.75.7",
     "rollup-plugin-dev": "^2.0.2",
-    "rollup-plugin-postcss": "^4.0.2",
-    "rollup-plugin-svelte": "^7.1.0",
     "semantic-release": "^19.0.3",
-    "svelte": "^3.48.0",
-    "testcafe": "^1.19.0"
+    "svelte": "^3.49.0",
+    "testcafe": "^1.19.0",
+    "vite": "^3.0.0"
   },
   "repository": {
     "type": "git",
@@ -52,6 +53,9 @@
     "url": "https://github.com/arlac77/svelte-log-view/issues"
   },
   "homepage": "https://github.com/arlac77/svelte-log-view#readme",
+  "pkgbuild": {
+    "groups": "examples"
+  },
   "template": {
     "properties": {
       "netlifly": {
@@ -63,7 +67,7 @@
     "inheritFrom": [
       "arlac77/template-arlac77-github",
       "arlac77/template-cloudflare",
-      "arlac77/template-svelte-component"
+      "arlac77/template-svelte-component#next"
     ]
   }
 }
