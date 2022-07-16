@@ -11,3 +11,4 @@ doc
 netlify.toml
 jsconfig.json
 vite.config.js
+pkg
