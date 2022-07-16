@@ -32,9 +32,13 @@
     "preview": "vite preview"
   },
   "devDependencies": {
+    "@semantic-release/commit-analyzer": "^9.0.2",
+    "@semantic-release/exec": "^6.0.3",
+    "@semantic-release/release-notes-generator": "^10.0.3",
     "@sveltejs/vite-plugin-svelte": "^1.0.1",
     "documentation": "^13.2.5",
     "mf-styling": "^1.2.31",
+    "npm-pkgbuild": "^10.11.3",
     "reader-line-iterator": "^1.1.2",
     "semantic-release": "^19.0.3",
     "svelte": "^3.49.0",
