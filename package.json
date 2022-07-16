@@ -32,8 +32,6 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "@rollup/plugin-node-resolve": "^13.3.0",
-    "@rollup/plugin-virtual": "^2.1.0",
     "@sveltejs/vite-plugin-svelte": "^1.0.1",
     "documentation": "^13.2.5",
     "mf-styling": "^1.2.31",
@@ -45,6 +43,10 @@
     "testcafe": "^1.19.0",
     "vite": "^3.0.0"
   },
+  "optionalDependencies": {
+    "mf-hosting": "^1.7.1"
+  },
+
   "repository": {
     "type": "git",
     "url": "https://github.com/arlac77/svelte-log-view.git"
@@ -54,19 +56,30 @@
   },
   "homepage": "https://github.com/arlac77/svelte-log-view#readme",
   "pkgbuild": {
+    "content": {
+      "${install.dir}": "build/",
+      "${nginx.sites.dir}${name}.conf": "pkg/nginx.conf"
+    },
     "groups": "examples"
   },
-  "template": {
-    "properties": {
-      "netlifly": {
-        "site": {
-          "uuid": "07bdbff0-0bb8-49e0-b60e-ff1f4f2a0009"
+  "release": {
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/npm",
+      [
+        "@semantic-release/exec",
+        {
+          "publishCmd": "npx npm-pkgbuild --available --continue --verbose"
         }
-      }
-    },
+      ],
+      "@semantic-release/github"
+    ]
+  },
     "inheritFrom": [
       "arlac77/template-arlac77-github",
       "arlac77/template-cloudflare",
+      "arlac77/template-pacman",
       "arlac77/template-svelte-component#next"
     ]
   }

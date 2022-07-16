@@ -46,3 +46,45 @@ export default defineConfig(async ({ command, mode }) => {
     }
   };
 });
+
+/*
+
+import { Readable } from "stream";
+
+      extend(app, modules) {
+        app.use(
+          modules.router.get("/api/log", (ctx, next) => {
+            const params = new URLSearchParams(
+              ctx.request.url.replace(/^[^\?]+\?/, "")
+            );
+
+            let line = parseInt(params.get("cursor")) || 0;
+            const offset = parseInt(params.get("offset")) || 0;
+            const number = parseInt(params.get("number")) || 20;
+
+            line += offset;
+
+            let i = 0;
+            ctx.body = new Readable({
+              encoding: "utf8",
+              read(size) {
+                if (i++ < number) {
+                  setTimeout(() => this.push(`line ${line++}\n`), 80);
+                } else {
+                  console.log("size", size);
+                  try {
+                    this.push();
+                  } catch (e) {
+                    console.log(e);
+                  }
+                }
+              }
+            });
+
+            //setTimeout(() => ctx.body.cancel(), 5000);
+
+            next();
+          })
+        );
+      }
+*/
