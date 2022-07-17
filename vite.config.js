@@ -25,6 +25,7 @@ export default defineConfig(async ({ command, mode }) => {
     root: "tests/app/src",
     worker: { format: "es" },
     plugins: [
+      myServerPlugin(),
       svelte({
         compilerOptions: {
           dev: !production
@@ -42,18 +43,49 @@ export default defineConfig(async ({ command, mode }) => {
   };
 });
 
+const myServerPlugin = () => ({
+  name: "configure-server",
+  configureServer(server) {
+    server.middlewares.use((req, res, next) => {
+      if(req.url.endsWith('/api/log')) {
+        const params = new URLSearchParams(
+          req.url.replace(/^[^\?]+\?/, "")
+        );
+
+        let line = parseInt(params.get("cursor")) || 0;
+        const offset = parseInt(params.get("offset")) || 0;
+        const number = parseInt(params.get("number")) || 20;
+
+        console.log("MIDDLEWARE",req.url);
+        line += offset;
+
+        let i = 0;
+        res.body = new Readable({
+          encoding: "utf8",
+          read(size) {
+            if (i++ < number) {
+              setTimeout(() => this.push(`line ${line++}\n`), 80);
+            } else {
+              console.log("size", size);
+              try {
+                this.push();
+              } catch (e) {
+                console.log(e);
+              }
+            }
+          }
+
+          
+        });
+        res.status = 200;
+        return;
+      }
+      next();
+    });
+  }
+});
 
 /*
-
-import { Readable } from "stream";
-
-      extend(app, modules) {
-        app.use(
-          modules.router.get("/api/log", (ctx, next) => {
-            const params = new URLSearchParams(
-              ctx.request.url.replace(/^[^\?]+\?/, "")
-            );
-
             let line = parseInt(params.get("cursor")) || 0;
             const offset = parseInt(params.get("offset")) || 0;
             const number = parseInt(params.get("number")) || 20;
