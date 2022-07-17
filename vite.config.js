@@ -47,72 +47,35 @@ const myServerPlugin = () => ({
   name: "configure-server",
   configureServer(server) {
     server.middlewares.use((req, res, next) => {
-      if(req.url.endsWith('/api/log')) {
-        const params = new URLSearchParams(
-          req.url.replace(/^[^\?]+\?/, "")
-        );
+      if (req.url.indexOf("/api/log") >= 0) {
+        const params = new URLSearchParams(req.url.replace(/^[^\?]+\?/, ""));
 
         let line = parseInt(params.get("cursor")) || 0;
         const offset = parseInt(params.get("offset")) || 0;
         const number = parseInt(params.get("number")) || 20;
 
-        console.log("MIDDLEWARE",req.url);
         line += offset;
 
         let i = 0;
-        res.body = new Readable({
-          encoding: "utf8",
-          read(size) {
-            if (i++ < number) {
-              setTimeout(() => this.push(`line ${line++}\n`), 80);
-            } else {
-              console.log("size", size);
-              try {
-                this.push();
-              } catch (e) {
-                console.log(e);
-              }
-            }
-          }
 
-          
-        });
-        res.status = 200;
+        if (i++ < number) {
+          let interval = setInterval(() => {
+            res.write(`line ${line++}\n`);
+            if (i++ > number) {
+              clearInterval(interval);
+              res.end();
+            }
+            interval;
+          }, 80);
+        } else {
+          res.end("line 000");
+        }
+
+        res.statusCode = 200;
         return;
+      } else {
+        next();
       }
-      next();
     });
   }
 });
-
-/*
-            let line = parseInt(params.get("cursor")) || 0;
-            const offset = parseInt(params.get("offset")) || 0;
-            const number = parseInt(params.get("number")) || 20;
-
-            line += offset;
-
-            let i = 0;
-            ctx.body = new Readable({
-              encoding: "utf8",
-              read(size) {
-                if (i++ < number) {
-                  setTimeout(() => this.push(`line ${line++}\n`), 80);
-                } else {
-                  console.log("size", size);
-                  try {
-                    this.push();
-                  } catch (e) {
-                    console.log(e);
-                  }
-                }
-              }
-            });
-
-            //setTimeout(() => ctx.body.cancel(), 5000);
-
-            next();
-          })
-        );
-      }
-*/
