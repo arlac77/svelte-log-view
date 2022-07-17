@@ -1,5 +1,4 @@
 <script>
-  import * as style from "./main.css";
   import { lineIterator } from "reader-line-iterator";
   import { LogView } from "../../../src/index.svelte";
 
