@@ -41,7 +41,6 @@
       }
     }
 
-
     follow = false;
   }
 
@@ -59,7 +58,7 @@
       let i;
 
       for (i = 0; i < number; i++) {
-        entries.unshift(undefined);
+        entries.unshift();
       }
 
       selected += number;

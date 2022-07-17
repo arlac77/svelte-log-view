@@ -4,6 +4,8 @@
 
   let controller = new AbortController();
 
+  const base = "/examples/svelte-log-view/";
+
   const source = {
     abort: async () => controller.abort(),
     fetch: async function* (cursor, offset, number) {
@@ -24,7 +26,7 @@
 
       try {
         const response = await fetch(
-          `/api/log?${new URLSearchParams(Object.entries(params))}`,
+          `${base}api/log?${new URLSearchParams(Object.entries(params))}`,
           {
             signal: controller.signal
           }
