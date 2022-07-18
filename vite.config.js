@@ -68,7 +68,7 @@ const myServerPlugin = () => ({
             interval;
           }, 80);
         } else {
-          res.end("line 000");
+          res.end("line 0");
         }
 
         res.statusCode = 200;
