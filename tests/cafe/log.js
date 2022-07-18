@@ -54,8 +54,8 @@ test("several lines", async t => {
 
   await t.expect(Selector("#log").innerText).contains("line 40");
   await t.expect(Selector("#follow").innerText).contains("F");
-*/
 
   await t.click(log).pressKey("f");
   await t.expect(Selector("#follow").innerText).contains("-");
+  */
 });
