@@ -12,7 +12,7 @@ test("several lines", async t => {
 
   await t
     .expect(Selector("#log").innerText)
-    .contains("line 011\nline 012\nline 013\n");
+    .contains("line 11\nline 12\nline 13\n");
 
 
   await t.click(log).pressKey("g");
