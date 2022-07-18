@@ -25,7 +25,7 @@
       current = entries[entries.length - 1];
     }
 
-    for await (const entry of source.fetch(current, 1)) {
+    for await (const entry of source.fetch(current, 0)) {
       entries.push(entry);
 
       if (entries.length <= visibleRows) {

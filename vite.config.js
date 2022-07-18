@@ -63,12 +63,12 @@ const myServerPlugin = () => ({
             res.write(`line ${line++}\n`);
             if (i++ > number) {
               clearInterval(interval);
+              interval = undefined;
               res.end();
             }
-            interval;
           }, 80);
         } else {
-          res.end("line 0");
+          res.end();
         }
 
         res.statusCode = 200;
