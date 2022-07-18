@@ -41,7 +41,7 @@
       }
     }
 
-    follow = false;
+    //follow = false;
   }
 
   async function setSelected(toBeSelected) {
