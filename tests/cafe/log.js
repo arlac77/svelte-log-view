@@ -12,9 +12,7 @@ test("several lines", async t => {
 
   await t
     .expect(Selector("#log").innerText)
-    .contains("line 11\nline 12\nline 13\n");
-
-
+    .contains("line 12\nline 13\nline 14\n");
   await t.click(log).pressKey("g");
   await t.wait(100);
   
@@ -30,15 +28,15 @@ test("several lines", async t => {
 
   await t.expect(Selector("#log").innerText).contains("line 3");
   await t.expect(Selector("#start").innerText).contains("0");
-  await t.expect(Selector("#selected").innerText).contains("2");
+  await t.expect(Selector("#selected").innerText).contains("line 2");
   await t.expect(Selector("#follow").innerText).contains("-");
 
   await t.click(log).pressKey("G");
   await t.wait(1000);
   
-  await t.expect(Selector("#log").innerText).contains("line 20");
-  await t.expect(Selector("#start").innerText).contains("10");
-  await t.expect(Selector("#selected").innerText).contains("19");
+  await t.expect(Selector("#log").innerText).contains("line 21");
+  await t.expect(Selector("#start").innerText).contains("line 12");
+  await t.expect(Selector("#selected").innerText).contains("line 21");
   await t.expect(Selector("#follow").innerText).contains("-");
 
 
