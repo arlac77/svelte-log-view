@@ -2,12 +2,12 @@
   import { onMount, onDestroy } from "svelte";
 
   export let source;
-  export let visibleRows = 1000000;
+  export let visibleRows = 10000;
   export let entries = [];
   export let visible = entries;
   export let follow = true;
   export let selected = 0;
-  export let start = 0;
+  export let start = 0;  // first visible entry
 
   let contents;
   let rows;
@@ -40,8 +40,6 @@
         setSelected(entries.length - 1);
       }
     }
-
-    //follow = false;
   }
 
   async function setSelected(toBeSelected) {
