@@ -1,10 +1,9 @@
 <script>
   import { lineIterator } from "reader-line-iterator";
   import { LogView } from "../../../src/index.svelte";
+  import { base } from "./constants.mjs";
 
   let controller = new AbortController();
-
-  const base = "/examples/svelte-log-view/";
 
   const source = {
     abort: async () => controller.abort(),
