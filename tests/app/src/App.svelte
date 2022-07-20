@@ -53,10 +53,13 @@
     let:position
     bind:selected
     bind:follow
-    bind:start>
-    <div class={selected === position ? 'selected' : ''}>{entry}</div>
+    bind:start
+  >
+    <div class={selected === position ? "selected" : ""}>{entry}</div>
   </LogView>
 </div>
-<p id="start">{start}</p>
-<p id="selected">{selected}</p>
-<p id="follow">{follow ? 'F' : '-'}</p>
+<div>
+  <p id="start">{start}</p>
+  <p id="selected">{selected}</p>
+  <p id="follow">{follow ? "F" : "-"}</p>
+</div>

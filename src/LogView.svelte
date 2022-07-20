@@ -9,13 +9,13 @@
   export let selected = 0;
   export let start = 0;  // first visible entry
 
-  let contents;
+  let content;
   let rows;
 
   onDestroy(() => source.abort());
 
   onMount(async () => {
-    rows = contents.getElementsByTagName("log-row");
+    rows = content.getElementsByTagName("log-row");
     fetchFollow();
   });
 
@@ -132,10 +132,10 @@
 </script>
 
 <svelte:window on:keydown={handleKeydown} />
-<log-contents bind:this={contents}>
+<log-content bind:this={content}>
   {#each visible as entry, i (i)}
     <log-row>
       <slot {entry} {selected} position={start + i} />
     </log-row>
   {/each}
-</log-contents>
+</log-content>
