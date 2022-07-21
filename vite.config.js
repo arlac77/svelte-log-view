@@ -17,6 +17,7 @@ export default defineConfig(async ({ command, mode }) => {
   process.env["VITE_NAME"] = properties.name;
   process.env["VITE_DESCRIPTION"] = properties.description;
   process.env["VITE_VERSION"] = properties.version;
+  process.env["VITE_API"] = properties.api;
 
   const open = process.env.CI ? {} : { open: base };
 

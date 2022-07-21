@@ -1,7 +1,7 @@
 <script>
   import { lineIterator } from "reader-line-iterator";
   import { LogView } from "../../../src/index.svelte";
-  import { base } from "./constants.mjs";
+  import { api } from "./constants.mjs";
 
   let controller = new AbortController();
 
@@ -25,7 +25,7 @@
 
       try {
         const response = await fetch(
-          `${base}api/log?${new URLSearchParams(Object.entries(params))}`,
+          `${api}?${new URLSearchParams(Object.entries(params))}`,
           {
             signal: controller.signal
           }

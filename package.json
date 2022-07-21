@@ -60,7 +60,8 @@
       "${install.dir}": "build/",
       "${nginx.sites.dir}${name}.conf": "pkg/nginx.conf"
     },
-    "groups": "examples"
+    "groups": "examples",
+    "api" : "${http.path}/api/log"
   },
   "release": {
     "plugins": [
