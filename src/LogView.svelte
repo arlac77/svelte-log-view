@@ -53,16 +53,15 @@
       const cursor = entries[0];
 
       let number = 5;
-      let i;
 
-      for (i = 0; i < number; i++) {
+      for (let i = 0; i < number; i++) {
         entries.unshift();
       }
 
       selected += number;
       start += number;
 
-      i = 0;
+      let i = 0;
       for await (const entry of source.fetch(cursor, -number, number)) {
         entries[i++] = entry;
         if (i >= number) {
