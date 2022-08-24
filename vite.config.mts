@@ -15,6 +15,7 @@ export default defineConfig(async ({ command, mode }) => {
   process.env["VITE_NAME"] = properties.name;
   process.env["VITE_DESCRIPTION"] = properties.description;
   process.env["VITE_VERSION"] = properties.version;
+  process.env["VITE_API"] = properties.api;
 
   const open = process.env.CI ? {} : { open: base };
 
@@ -23,6 +24,7 @@ export default defineConfig(async ({ command, mode }) => {
     root: "tests/app/src",
     worker: { format: "es" },
     plugins: [
+      myServerPlugin(),
       svelte({
         compilerOptions: {
           dev: !production
@@ -38,4 +40,41 @@ export default defineConfig(async ({ command, mode }) => {
       sourcemap: true
     }
   };
+});
+
+const myServerPlugin = () => ({
+  name: "configure-server",
+  configureServer(server) {
+    server.middlewares.use((req, res, next) => {
+      if (req.url.indexOf("/api/log") >= 0) {
+        const params = new URLSearchParams(req.url.replace(/^[^\?]+\?/, ""));
+
+        let line = parseInt(params.get("cursor")) || 0;
+        const offset = parseInt(params.get("offset")) || 0;
+        const number = parseInt(params.get("number")) || 20;
+
+        line += offset;
+
+        let i = 0;
+
+        if (i++ < number) {
+          let interval = setInterval(() => {
+            res.write(`line ${line++}\n`);
+            if (i++ > number) {
+              clearInterval(interval);
+              interval = undefined;
+              res.end();
+            }
+          }, 80);
+        } else {
+          res.end();
+        }
+
+        res.statusCode = 200;
+        return;
+      } else {
+        next();
+      }
+    });
+  }
 });
