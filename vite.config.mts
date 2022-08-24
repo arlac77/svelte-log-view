@@ -49,9 +49,9 @@ const myServerPlugin = () => ({
       if (req.url.indexOf("/api/log") >= 0) {
         const params = new URLSearchParams(req.url.replace(/^[^\?]+\?/, ""));
 
-        let line = parseInt(params.get("cursor")) || 0;
-        const offset = parseInt(params.get("offset")) || 0;
-        const number = parseInt(params.get("number")) || 20;
+        let line = parseInt(params.get("cursor") || "0");
+        const offset = parseInt(params.get("offset") || "0");
+        const number = parseInt(params.get("number") || "20" );
 
         line += offset;
 
