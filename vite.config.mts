@@ -47,6 +47,10 @@ const myServerPlugin = () => ({
   configureServer(server) {
     server.middlewares.use((req, res, next) => {
       if (req.url.indexOf("/api/log") >= 0) {
+
+        res.setHeader('Content-Type', 'text/plain');
+        res.statusCode = 200;
+
         const params = new URLSearchParams(req.url.replace(/^[^\?]+\?/, ""));
 
         let line = parseInt(params.get("cursor") || "0");
@@ -70,7 +74,6 @@ const myServerPlugin = () => ({
           res.end();
         }
 
-        res.statusCode = 200;
         return;
       } else {
         next();
