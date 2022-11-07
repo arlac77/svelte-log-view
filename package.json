@@ -37,12 +37,12 @@
     "@sveltejs/vite-plugin-svelte": "^1.1.0",
     "documentation": "^14.0.0",
     "mf-styling": "^1.7.23",
-    "npm-pkgbuild": "^10.15.12",
+    "npm-pkgbuild": "^10.15.13",
     "reader-line-iterator": "^1.1.5",
     "semantic-release": "^19.0.5",
     "svelte": "^3.52.0",
     "testcafe": "^2.0.2",
-    "vite": "^3.2.2"
+    "vite": "^3.2.3"
   },
   "optionalDependencies": {
     "mf-hosting": "^1.7.5"
