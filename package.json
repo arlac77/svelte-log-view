@@ -37,7 +37,7 @@
     "@sveltejs/vite-plugin-svelte": "^1.4.0",
     "documentation": "^14.0.0",
     "mf-styling": "^1.7.27",
-    "npm-pkgbuild": "^10.15.17",
+    "npm-pkgbuild": "^10.15.18",
     "reader-line-iterator": "^1.1.5",
     "semantic-release": "^19.0.5",
     "svelte": "^3.53.1",
