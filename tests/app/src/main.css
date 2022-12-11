@@ -1,6 +1,6 @@
-@import "mf-styling/src/color.css";
-@import "mf-styling/src/log.css";
-@import "../../../src/log.css";
+@import url("mf-styling/src/color.css");
+@import url("mf-styling/src/log.css");
+@import url("../../../src/log.css");
 
 .selected {
   background-color: var(--color-accent-100);
