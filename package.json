@@ -5,7 +5,7 @@
     "access": "public"
   },
   "svelte": "./src/index.svelte",
-  "description": "show log content",
+  "description": "svelte log viewer component",
   "keywords": [
     "component",
     "log",
