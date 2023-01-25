@@ -5,6 +5,10 @@
 
   let controller = new AbortController();
 
+  if (!localStorage.logSource) {
+    localStorage.logSource = api;
+  }
+
   const source = {
     abort: async () => controller.abort(),
     fetch: async function* (cursor, offset, number) {
@@ -25,7 +29,9 @@
 
       try {
         const response = await fetch(
-          `${api}?${new URLSearchParams(Object.entries(params))}`,
+          `${localStorage.logSource}?${new URLSearchParams(
+            Object.entries(params)
+          )}`,
           {
             signal: controller.signal
           }
