@@ -3,10 +3,13 @@ import { defineConfig } from "vite";
 import { extractFromPackage } from "npm-pkgbuild";
 
 export default defineConfig(async ({ command, mode }) => {
-  const res = extractFromPackage({
-    dir: new URL("./", import.meta.url).pathname,
-    mode
-  }, process.env);
+  const res = extractFromPackage(
+    {
+      dir: new URL("./", import.meta.url).pathname,
+      mode
+    },
+    process.env
+  );
   const first = await res.next();
   const pkg = first.value;
   const properties = pkg.properties;
@@ -47,15 +50,14 @@ const myServerPlugin = () => ({
   configureServer(server) {
     server.middlewares.use((req, res, next) => {
       if (req.url.indexOf("/api/log") >= 0) {
-
-        res.setHeader('Content-Type', 'text/plain');
+        res.setHeader("Content-Type", "text/plain");
         res.statusCode = 200;
 
         const params = new URLSearchParams(req.url.replace(/^[^\?]+\?/, ""));
 
         let line = parseInt(params.get("cursor") || "0");
-        const offset = parseInt(params.get("offset") || "0");
-        const number = parseInt(params.get("number") || "20" );
+        const offset = parseInt(params.get("offset") || "0");
+        const number = parseInt(params.get("number") || "20");
 
         line += offset;
 
