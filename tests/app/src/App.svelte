@@ -11,7 +11,7 @@
 
   const source = {
     abort: async () => controller.abort(),
-    fetch: async function* (cursor, offset, number) {
+    fetch: async function* (cursor, offset=0, number=10) {
       if (controller) {
         controller.abort();
       }
