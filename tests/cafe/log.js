@@ -1,6 +1,6 @@
 import { Selector } from "testcafe";
 
-const base = "http://localhost:5173/examples/svelte-log-view/";
+const base = "http://localhost:5173";
 
 fixture`log`.page`${base}`;
 

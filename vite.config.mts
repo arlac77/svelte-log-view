@@ -21,8 +21,6 @@ export default defineConfig(async ({ command, mode }) => {
   process.env["VITE_VERSION"] = properties.version;
   process.env["VITE_API"] = properties.api;
 
-  const open = process.env.CI ? {} : { open: base };
-
   return {
     base,
     root: "tests/app/src",
@@ -34,7 +32,7 @@ export default defineConfig(async ({ command, mode }) => {
         }
       })
     ],
-    server: { host: true, ...open },
+    server: { host: true },
     build: {
       outDir: "../../../build",
       target: "esnext",
