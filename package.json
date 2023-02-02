@@ -60,7 +60,7 @@
     "content": {
       "${install.dir}": "build/"
     },
-    "api": "${http.path}/api/log",
+    "api": "http://localhost:5173/api/log",
     "example": true,
     "frontend": true
   },
