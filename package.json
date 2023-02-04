@@ -61,6 +61,7 @@
       "${install.dir}": "build/"
     },
     "api": "api/log",
+    "csp.connect-src": "connect-src https://mocked-log-provider.markus-felten.workers.dev/;",
     "example": true,
     "frontend": true
   },
