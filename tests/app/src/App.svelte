@@ -9,6 +9,12 @@
     localStorage.logSource = api;
   }
 
+  let logSource = localStorage.logSource;
+
+  $: {
+    localStorage.logSource = logSource;
+  }
+
   const source = {
     abort: async () => controller.abort(),
     fetch: async function* (cursor, offset=0, number=20) {
@@ -29,7 +35,7 @@
 
       try {
         const response = await fetch(
-          `${localStorage.logSource}?${new URLSearchParams(
+          `${logSource}?${new URLSearchParams(
             Object.entries(params)
           )}`,
           {
@@ -68,4 +74,19 @@
   <p id="start">{start}</p>
   <p id="selected">{selected}</p>
   <p id="follow">{follow ? "F" : "-"}</p>
+  <fieldset>
+    <label for="url">
+      Logging API
+      <input
+        type="url"
+        name="url"
+        id="url"
+        placeholder="https://example.com"
+        pattern="http?://.*"
+        size="60"
+        required
+        bind:value={logSource}
+      />
+    </label>
+  </fieldset>
 </div>
