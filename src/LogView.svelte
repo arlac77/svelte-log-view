@@ -25,21 +25,24 @@
       current = entries[entries.length - 1];
     }
 
-    for await (const entry of source.fetch(current, 0)) {
-      entries.push(entry);
+    do {
+      for await (const entry of source.fetch(current, 0)) {
+        entries.push(entry);
 
-      if (entries.length <= visibleRows) {
-        visible = entries;
-      } else {
-        if (!follow) {
-          visible = entries.slice(start, visibleRows);
+        if (entries.length <= visibleRows) {
+          visible = entries;
+        } else {
+          if (!follow) {
+            visible = entries.slice(start, visibleRows);
+          }
+        }
+
+        if (follow) {
+          setSelected(entries.length - 1);
         }
       }
-
-      if (follow) {
-        setSelected(entries.length - 1);
-      }
     }
+    while(follow);
   }
 
   async function setSelected(toBeSelected) {
