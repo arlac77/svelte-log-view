@@ -55,7 +55,7 @@ const myServerPlugin = () => ({
 
         let line = parseInt(params.get("cursor") || "0");
         const offset = parseInt(params.get("offset") || "0");
-        const number = parseInt(params.get("number") || "20");
+        const number = parseInt(params.get("number") || "10");
 
         line += offset;
 

@@ -7,7 +7,7 @@
   export let visible = entries;
   export let follow = true;
   export let selected = 0;
-  export let start = 0;  // first visible entry
+  export let start = 0; // first visible entry
 
   let content;
   let rows;
@@ -26,7 +26,7 @@
     }
 
     do {
-      for await (const entry of source.fetch(current, 0)) {
+      for await (const entry of source.fetch(current)) {
         entries.push(entry);
 
         if (entries.length <= visibleRows) {
@@ -39,10 +39,11 @@
 
         if (follow) {
           setSelected(entries.length - 1);
+
+          current = entries[entries.length - 1];
         }
       }
-    }
-    while(follow);
+    } while (follow);
   }
 
   async function setSelected(toBeSelected) {

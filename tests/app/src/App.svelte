@@ -17,7 +17,7 @@
 
   const source = {
     abort: async () => controller.abort(),
-    fetch: async function* (cursor, offset=0, number=20) {
+    fetch: async function* (cursor, offset = 0, number = 20) {
       if (controller) {
         controller.abort();
       }
@@ -35,9 +35,7 @@
 
       try {
         const response = await fetch(
-          `${logSource}?${new URLSearchParams(
-            Object.entries(params)
-          )}`,
+          `${logSource}?${new URLSearchParams(Object.entries(params))}`,
           {
             signal: controller.signal
           }
