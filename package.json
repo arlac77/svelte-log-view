@@ -35,7 +35,7 @@
     "@semantic-release/exec": "^6.0.3",
     "@semantic-release/release-notes-generator": "^11.0.1",
     "@sveltejs/vite-plugin-svelte": "^2.2.0",
-    "documentation": "^14.0.1",
+    "documentation": "^14.0.2",
     "mf-styling": "^1.7.54",
     "npm-pkgbuild": "^11.8.5",
     "reader-line-iterator": "^1.1.5",
