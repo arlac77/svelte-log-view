@@ -40,7 +40,7 @@
     "@semantic-release/release-notes-generator": "^11.0.4",
     "@sveltejs/vite-plugin-svelte": "^2.4.2",
     "documentation": "^14.0.2",
-    "mf-styling": "^2.0.1",
+    "mf-styling": "^2.0.2",
     "npm-pkgbuild": "^11.8.14",
     "reader-line-iterator": "^1.1.6",
     "semantic-release": "^21.0.7",
