@@ -6,7 +6,8 @@
   },
   "exports": {
     ".": {
-      "svelte": "./src/index.svelte"
+      "svelte": "./src/index.svelte",
+      "./src/log.css" : "./src/log.css"
     }
   },
   "description": "svelte log viewer component",
