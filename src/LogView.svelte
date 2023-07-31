@@ -10,12 +10,12 @@
   export let start = 0; // first visible entry
 
   let content;
-  let rows;
+ // let rows;
 
   onDestroy(() => source.abort());
 
   onMount(async () => {
-    rows = content.getElementsByTagName("log-row");
+  //  rows = content.getElementsByTagName("log-row");
     fetchFollow();
   });
 
