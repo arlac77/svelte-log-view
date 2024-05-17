@@ -10,12 +10,10 @@
   export let start = 0; // first visible entry
 
   let content;
-  // let rows;
 
   onDestroy(() => source.abort());
 
   onMount(async () => {
-    //  rows = content.getElementsByTagName("log-row");
     fetchFollow();
   });
 
@@ -134,7 +132,7 @@
   }
 </script>
 
-<svelte:window on:keydown={handleKeydown} />
+<svelte:window onkeydown={handleKeydown} />
 <log-content bind:this={content}>
   {#each visible as entry, i (i)}
     <log-row>
