@@ -121,7 +121,6 @@
         setFollow(false);
         setSelected(0);
         break;
-
       case "f":
         setFollow(!follow);
         break;
@@ -129,7 +128,8 @@
   }
 
   function onclick(event) {
-    setSelected(start + Math.floor(event.clientY / 21)); // TODO calculate position ?
+    setFollow(false);
+    setSelected(start + Math.floor(event.clientY / 22)); // TODO calculate position ?
   }
 </script>
 
