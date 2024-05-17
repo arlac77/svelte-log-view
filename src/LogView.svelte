@@ -12,10 +12,7 @@
   let content;
 
   onDestroy(() => source.abort());
-
-  onMount(async () => {
-    fetchFollow();
-  });
+  onMount(() => fetchFollow());
 
   async function fetchFollow() {
     let current;
@@ -98,7 +95,7 @@
     follow = flag;
   }
 
-  function handleKeydown(event) {
+  function onkeydown(event) {
     switch (event.key) {
       case "ArrowUp":
         setFollow(false);
@@ -132,7 +129,7 @@
   }
 </script>
 
-<svelte:window onkeydown={handleKeydown} />
+<svelte:window {onkeydown} />
 <log-content bind:this={content}>
   {#each visible as entry, i (i)}
     <log-row>
