@@ -127,12 +127,16 @@
         break;
     }
   }
+
+  function onclick(event) {
+    setSelected(start + Math.floor(event.clientY / 21)); // TODO calculate position ?
+  }
 </script>
 
 <svelte:window {onkeydown} />
 <log-content bind:this={content}>
   {#each visible as entry, i (i)}
-    <log-row>
+    <log-row {onclick} {onkeydown} role="none">
       <slot {entry} {selected} position={start + i} />
     </log-row>
   {/each}
