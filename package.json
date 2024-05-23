@@ -74,6 +74,7 @@
     },
     "api": "api/log",
     "csp.connect-src": "connect-src https://mocked-log-provider.markus-felten.workers.dev/ {{http.origin}} self;",
+    "nginx.server.extra": "rewrite {{http.base.path}}/{{name}}/api/log {{http.base.path}}/mocked-log-provider/ permanent;",
     "example": true,
     "frontend": true
   },
