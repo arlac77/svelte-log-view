@@ -48,6 +48,7 @@
       selected = entries.length - 1;
       start = entries.length - visibleRows;
     }
+
     if (selected < 0) {
       const cursor = entries[0];
 
