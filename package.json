@@ -72,7 +72,7 @@
     "content": {
       "${install.dir}": "build/"
     },
-    "api": "${http.origin}/examples/mocked-log-provider/",
+    "api": "api/log",
     "csp.connect-src": "connect-src https://mocked-log-provider.markus-felten.workers.dev/ self;",
     "example": true,
     "frontend": true
