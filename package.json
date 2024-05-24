@@ -45,10 +45,10 @@
     "@sveltejs/vite-plugin-svelte": "^3.1.0",
     "documentation": "^14.0.3",
     "mf-styling": "^3.1.6",
-    "npm-pkgbuild": "^15.3.16",
+    "npm-pkgbuild": "^15.3.17",
     "reader-line-iterator": "^1.2.0",
     "semantic-release": "^23.1.1",
-    "svelte": "^5.0.0-next.140",
+    "svelte": "^5.0.0-next.141",
     "testcafe": "^3.6.0",
     "vite": "^5.2.11",
     "vite-plugin-compression2": "^1.1.1"
@@ -74,9 +74,9 @@
     },
     "api": "api/log",
     "csp.connect-src": "connect-src https://mocked-log-provider.markus-felten.workers.dev/ {{http.origin}} self;",
-    "nginx.server.extra": "rewrite {{http.base.path}}/{{name}}/api/log {{http.base.path}}/mocked-log-provider/ permanent;",
     "example": true,
-    "frontend": true
+    "frontend": true,
+    "nginx.server.extra": "rewrite {{http.base.path}}/svelte-log-view/api/log {{http.base.path}}/mocked-log-provider/ permanent;"
   },
   "release": {
     "plugins": [
