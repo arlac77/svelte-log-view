@@ -48,9 +48,9 @@
     "npm-pkgbuild": "^15.3.21",
     "reader-line-iterator": "^1.2.0",
     "semantic-release": "^24.0.0",
-    "svelte": "^5.0.0-next.165",
+    "svelte": "^5.0.0-next.166",
     "testcafe": "^3.6.1",
-    "vite": "^5.3.1",
+    "vite": "^5.3.2",
     "vite-plugin-compression2": "^1.1.1"
   },
   "peerDependencies": {
