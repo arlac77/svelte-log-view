@@ -1,18 +1,30 @@
 <script>
-  import { onMount, onDestroy } from "svelte";
+  import { onDestroy } from "svelte";
 
-  export let source;
-  export let visibleRows = 10000;
-  export let entries = [];
-  export let visible = entries;
-  export let follow = true;
-  export let selected = 0;
-  export let start = 0; // first visible entry
+  let {
+    source,
+    visibleRows = 10000,
+    entries = [],
+    visible = entries,
+    follow = $bindable(true),
+    selected = $bindable(0),
+    start = $bindable(0)
+  } = $props();
 
   let content;
 
   onDestroy(() => source.abort());
-  onMount(() => fetchFollow());
+
+  let done = false;
+
+
+  $effect(() => {
+    if(!done) {
+      fetchFollow();
+      done = true;
+    }
+	});
+
 
   async function fetchFollow() {
     let current;
