@@ -8,7 +8,8 @@
     visible = entries,
     follow = $bindable(true),
     selected = $bindable(0),
-    start = $bindable(0)
+    start = $bindable(0),
+    row
   } = $props();
 
   let content;
@@ -140,7 +141,7 @@
 
   function onclick(event) {
     setFollow(false);
-    const height = event.target.getBoundingClientRect().height; // +4 borde ?
+    const height = event.target.getBoundingClientRect().height; // +4 border ?
     setSelected(start + Math.floor(event.clientY / height));
   }
 </script>
@@ -149,7 +150,7 @@
 <log-content bind:this={content}>
   {#each visible as entry, i (i)}
     <log-row {onclick} {onkeydown} role="none">
-      <slot {entry} {selected} position={start + i} />
+      {@render row(entry,selected,start + i)}
     </log-row>
   {/each}
 </log-content>

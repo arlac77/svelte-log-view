@@ -55,6 +55,10 @@
   let selected = -1;
 </script>
 
+{#snippet row(entry,selected,position)}
+  <div class={selected === position ? "selected" : ""}>{entry}</div>
+{/snippet}
+
 <div id="log">
   <LogView
     visibleRows={10}
@@ -64,8 +68,8 @@
     bind:selected
     bind:follow
     bind:start
+    {row}
   >
-    <div class={selected === position ? "selected" : ""}>{entry}</div>
   </LogView>
 </div>
 <div>
