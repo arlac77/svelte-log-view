@@ -17,14 +17,12 @@
 
   let done = false;
 
-
   $effect(() => {
     if(!done) {
       fetchFollow();
       done = true;
     }
 	});
-
 
   async function fetchFollow() {
     let current;
@@ -142,7 +140,8 @@
 
   function onclick(event) {
     setFollow(false);
-    setSelected(start + Math.floor(event.clientY / 22)); // TODO calculate position ?
+    const height = event.target.getBoundingClientRect().height; // +4 borde ?
+    setSelected(start + Math.floor(event.clientY / height));
   }
 </script>
 
