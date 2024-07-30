@@ -55,7 +55,7 @@
   let selected = -1;
 </script>
 
-{#snippet row(entry,selected,position)}
+{#snippet row(entry,selected,position,follow)}
   <div class={selected === position ? "selected" : ""}>{entry}</div>
 {/snippet}
 
