@@ -1,15 +1,26 @@
 <script>
   import { onDestroy } from "svelte";
 
+  /**
+   *   line 1    |                
+   *   line 2    | -> start
+   * ----------
+   * | line 4 |  |
+   * | line 5 |  | -> visibleRows
+   * | line 5 |  |
+   * ----------
+   *   line 6
+   */
+
   let {
-    source,
-    visibleRows = 10000,
+    source,                /** data source */
+    visibleRows = 100,     /** number of rows in the dom */
+    start = $bindable(0),
     entries = [],
     visible = entries,
     follow = $bindable(true),
     selected = $bindable(0),
-    start = $bindable(0),
-    fetchAboveRows = 5 /** number of rows to fetch if scrolling upwards into the void */,
+    fetchAboveRows = 5,    /** number of rows to fetch if scrolling upwards into the void */
     row
   } = $props();
 
