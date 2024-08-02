@@ -9,11 +9,12 @@
     localStorage.logSource = api;
   }
 
-  let logSource = localStorage.logSource;
+  let logSource = $state(localStorage.logSource);
+  $effect(() => localStorage.logSource = logSource);
 
-  $: {
-    localStorage.logSource = logSource;
-  }
+  let start = $state(0);
+  let follow = $state(true);
+  let selected = $state(-1);
 
   const source = {
     abort: async () => controller.abort(),
@@ -50,9 +51,6 @@
     }
   };
 
-  let start = 0;
-  let follow = true;
-  let selected = -1;
 </script>
 
 {#snippet row(entry,selected,position,follow)}
