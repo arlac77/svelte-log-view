@@ -14,7 +14,7 @@
 
   let {
     source,                /** data source */
-    visibleRows = 100,     /** number of rows in the dom */
+    visibleRows = 24,     /** number of rows in the dom */
     start = $bindable(0),
     entries = [],
     visible = entries,
