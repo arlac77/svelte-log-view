@@ -160,7 +160,7 @@
 <log-content bind:this={content}>
   {#each visible as entry, i (i)}
     <log-row {onclick} {onkeydown} role="none">
-      {@render row(entry,selected,start + i, follow)}
+      {@render row(entry, selected, start + i, follow)}
     </log-row>
   {/each}
 </log-content>
