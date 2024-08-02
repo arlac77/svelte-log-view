@@ -9,6 +9,7 @@
     follow = $bindable(true),
     selected = $bindable(0),
     start = $bindable(0),
+    fetchAboveRows = 5 /** number of rows to fetch if scrolling upwards into the void */,
     row
   } = $props();
 
@@ -63,19 +64,17 @@
     if (selected < 0) {
       const cursor = entries[0];
 
-      let number = 5;
-
-      for (let i = 0; i < number; i++) {
+      for (let i = 0; i < fetchAboveRows; i++) {
         entries.unshift();
       }
 
-      selected += number;
-      start += number;
+      selected += fetchAboveRows;
+      start += fetchAboveRows;
 
       let i = 0;
-      for await (const entry of source.fetch(cursor, -number, number)) {
+      for await (const entry of source.fetch(cursor, -fetchAboveRows, fetchAboveRows)) {
         entries[i++] = entry;
-        if (i >= number) {
+        if (i >= fetchAboveRows) {
           break;
         }
         visible = entries.slice(start, start + visibleRows);
