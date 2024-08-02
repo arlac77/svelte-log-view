@@ -30,8 +30,10 @@
         number
       };
 
+      const nextLine = cursor ? parseInt(cursor.substring(5)) + 1 : 0;
+
       if (cursor) {
-        params.cursor = cursor.substring(5);
+        params.cursor = nextLine;
       }
 
       try {
