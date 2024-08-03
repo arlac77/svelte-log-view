@@ -12,7 +12,7 @@
   let logSource = $state(localStorage.logSource);
   $effect(() => localStorage.logSource = logSource);
 
-  let start = $state(0);
+  let offsetRows = $state(0);
   let follow = $state(true);
   let selected = $state(-1);
 
@@ -30,10 +30,9 @@
         number
       };
 
-      const nextLine = cursor ? parseInt(cursor.substring(5)) + 1 : 0;
-
-      if (cursor) {
-        params.cursor = nextLine;
+      if(cursor) {
+        const lineNumber = parseInt(cursor.substring(5));
+        params.cursor = offset >= 0 ? lineNumber + 1 : lineNumber;
       }
 
       try {
@@ -67,13 +66,13 @@
     let:position
     bind:selected
     bind:follow
-    bind:start
+    bind:offsetRows
     {row}
   >
   </LogView>
 </div>
 <div>
-  <p id="start">{start}</p>
+  <p id="offsetRows">{offsetRows}</p>
   <p id="selected">{selected}</p>
   <p id="follow">{follow ? "F" : "-"}</p>
   <fieldset>

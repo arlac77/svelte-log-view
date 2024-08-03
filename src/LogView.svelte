@@ -3,7 +3,7 @@
 
   /**
    *   line 1    |                
-   *   line 2    | -> start
+   *   line 2    | -> offsetRows
    * ----------
    * | line 4 |  |
    * | line 5 |  | -> visibleRows
@@ -14,16 +14,16 @@
 
   let {
     source,                /** data source */
-    visibleRows = 24,     /** number of rows in the dom */
-    start = $bindable(0),
-    entries = [],
-    visible = entries,
+    visibleRows = 24,      /** number of rows in the dom */
+    offsetRows = $bindable(0),  /** number of rows from the top to the 1st. visible */
     follow = $bindable(true),
     selected = $bindable(0),
-    fetchAboveRows = 5,    /** number of rows to fetch if scrolling upwards into the void */
+    fetchAboveRows = 2,    /** number of rows to fetch if scrolling upwards into the void */
     row
   } = $props();
 
+  let entries = [];
+  let visible = $state(entries);
   let content;
 
   onDestroy(() => source.abort());
@@ -51,7 +51,7 @@
           visible = entries;
         } else {
           if (!follow) {
-            visible = entries.slice(start, visibleRows);
+            visible = entries.slice(offsetRows, visibleRows);
           }
         }
 
@@ -69,7 +69,7 @@
 
     if (selected > entries.length - 1) {
       selected = entries.length - 1;
-      start = entries.length - visibleRows;
+      offsetRows = entries.length - visibleRows;
     }
 
     if (selected < 0) {
@@ -80,7 +80,7 @@
       }
 
       selected += fetchAboveRows;
-      start += fetchAboveRows;
+      offsetRows += fetchAboveRows;
 
       let i = 0;
       for await (const entry of source.fetch(cursor, -fetchAboveRows, fetchAboveRows)) {
@@ -88,19 +88,18 @@
         if (i >= fetchAboveRows) {
           break;
         }
-        visible = entries.slice(start, start + visibleRows);
       }
     }
 
-    if (selected < start) {
-      start = selected;
+    if (selected < offsetRows) {
+      offsetRows = selected;
     }
 
-    if (selected >= start + visibleRows) {
-      start = selected - visibleRows + 1;
+    if (selected >= offsetRows + visibleRows) {
+      offsetRows = selected - visibleRows + 1;
     }
 
-    visible = entries.slice(start, start + visibleRows);
+    visible = entries.slice(offsetRows, offsetRows + visibleRows);
   }
 
   function setFollow(flag) {
@@ -151,8 +150,9 @@
 
   function onclick(event) {
     setFollow(false);
-    const height = event.target.getBoundingClientRect().height; // +4 border ?
-    setSelected(start + Math.floor(event.clientY / height));
+    const totalHeight = content.getBoundingClientRect().height;
+    const rowHeight = totalHeight / visibleRows;
+    setSelected(offsetRows + Math.floor(event.clientY / rowHeight));
   }
 </script>
 
@@ -160,7 +160,7 @@
 <log-content bind:this={content}>
   {#each visible as entry, i (i)}
     <log-row {onclick} {onkeydown} role="none">
-      {@render row(entry, selected, start + i, follow)}
+      {@render row(entry, selected, offsetRows + i, follow)}
     </log-row>
   {/each}
 </log-content>
