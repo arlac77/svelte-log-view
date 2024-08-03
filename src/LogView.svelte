@@ -73,22 +73,16 @@
     }
 
     if (selected < 0) {
-      const cursor = entries[0];
+      const additionalEntries = [];
 
-      for (let i = 0; i < fetchAboveRows; i++) {
-        entries.unshift();
+      for await (const entry of source.fetch(entries[0], -fetchAboveRows, fetchAboveRows)) {
+        additionalEntries.push(entry);
       }
 
-      selected += fetchAboveRows;
-      offsetRows += fetchAboveRows;
+      entries.unshift(...additionalEntries);
 
-      let i = 0;
-      for await (const entry of source.fetch(cursor, -fetchAboveRows, fetchAboveRows)) {
-        entries[i++] = entry;
-        if (i >= fetchAboveRows) {
-          break;
-        }
-      }
+      selected += additionalEntries.length;
+      offsetRows += additionalEntries.length;
     }
 
     if (selected < offsetRows) {

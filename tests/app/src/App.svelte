@@ -32,7 +32,7 @@
 
       if(cursor) {
         const lineNumber = parseInt(cursor.substring(5));
-        params.cursor = offset >= 0 ? lineNumber + 1 : lineNumber;
+        params.cursor = offset >= 0 ? lineNumber + 1 : lineNumber - 1;
       }
 
       try {
