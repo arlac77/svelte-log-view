@@ -41,6 +41,9 @@
     let current;
     if (entries.length > 0) {
       current = entries[entries.length - 1];
+      if (follow) {
+        setSelected(entries.length - 1);
+      }
     }
 
     do {
@@ -97,17 +100,14 @@
   }
 
   function setFollow(flag) {
-    if (follow === flag) {
-      return;
+    if (follow !== flag) {
+      follow = flag;
+      if (flag) {
+        fetchFollow();
+      } else {
+        source.abort();
+      }
     }
-
-    if (flag) {
-      fetchFollow();
-    } else {
-      source.abort();
-    }
-
-    follow = flag;
   }
 
   function onkeydown(event) {
