@@ -39,6 +39,9 @@
         const response = await fetch(
           `${logSource}?${new URLSearchParams(Object.entries(params))}`,
           {
+            headers: {
+              "Content-Type": "text/plain"
+            },
             signal: controller.signal
           }
         );
