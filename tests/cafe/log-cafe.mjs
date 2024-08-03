@@ -8,7 +8,7 @@ test("several lines", async t => {
   await t.wait(100);
 
   await t.expect(Selector("#log").innerText).contains("line 30\nline 31");
-  //await t.expect(Selector("#start").innerText).contains("11");
+  //await t.expect(Selector("#offsetRows").innerText).contains("11");
   //await t.expect(Selector("#selected").innerText).contains("20");
   await t.expect(Selector("#follow").innerText).contains("F");
 
@@ -16,7 +16,7 @@ test("several lines", async t => {
   await t.wait(100);
 
   await t.expect(Selector("#log").innerText).contains("line 0");
-  await t.expect(Selector("#start").innerText).contains("0");
+  await t.expect(Selector("#offsetRows").innerText).contains("0");
   await t.expect(Selector("#selected").innerText).contains("0");
   await t.expect(Selector("#follow").innerText).contains("-");
 
@@ -26,7 +26,7 @@ test("several lines", async t => {
   await t.wait(100);
 
   await t.expect(Selector("#log").innerText).contains("line 2");
-  await t.expect(Selector("#start").innerText).contains("0");
+  await t.expect(Selector("#offsetRows").innerText).contains("0");
   await t.expect(Selector("#selected").innerText).contains("2");
   await t.expect(Selector("#follow").innerText).contains("-");
 
@@ -34,7 +34,7 @@ test("several lines", async t => {
   await t.wait(500);
 
   await t.expect(Selector("#log").innerText).contains("line 38");
-  //await t.expect(Selector("#start").innerText).contains("11");
+  //await t.expect(Selector("#offsetRows").innerText).contains("11");
   //await t.expect(Selector("#selected").innerText).contains("20");
   await t.expect(Selector("#follow").innerText).contains("-");
 
@@ -44,7 +44,7 @@ test("several lines", async t => {
   /*
   await t.pressKey("up");
   await t.wait(1000);
-  await t.expect(Selector("#start").innerText).contains("0");
+  await t.expect(Selector("#offsetRows").innerText).contains("0");
   await t.expect(Selector("#selected").innerText).contains("0");
   await t.expect(Selector("#log").innerText).contains("line 0");
 
