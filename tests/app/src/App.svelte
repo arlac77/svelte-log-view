@@ -62,8 +62,6 @@
   <LogView
     visibleRows={10}
     {source}
-    let:entry
-    let:position
     bind:selected
     bind:follow
     bind:offsetRows
