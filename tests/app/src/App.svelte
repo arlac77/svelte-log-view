@@ -73,10 +73,35 @@
   </LogView>
 </div>
 <div>
-  <p id="offsetRows">{offsetRows}</p>
-  <p id="selected">{selected}</p>
-  <p id="follow">{follow ? "F" : "-"}</p>
   <fieldset>
+    <label for="offsetRows">
+      Offset Rows
+      <input
+        type="number"
+        name="offsetRows"
+        id="offsetRows"
+        bind:value={offsetRows}
+      />
+    </label>
+
+    <label for="selected">
+      Selected
+      <input
+        type="number"
+        name="selected"
+        id="selected"
+        bind:value={selected}
+      />
+    </label>
+    <label for="follow">
+      Follow
+      <input
+        type="checkbox"
+        name="follow"
+        id="follow"
+        bind:checked={follow}
+      />
+    </label>
     <label for="url">
       Logging API
       <input
