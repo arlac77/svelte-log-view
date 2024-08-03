@@ -34,7 +34,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: npm
           cache-dependency-path: package-lock.json
-      - run: npm cit
+      - run: npm it
         env:
           BROWSER: ${{ matrix.browser }}
       - uses: actions/upload-artifact@v4
@@ -75,7 +75,7 @@ jobs:
           node-version: 22.5.1
           cache: npm
           cache-dependency-path: package-lock.json
-      - run: npm ci
+      - run: npm install
       - run: npx semantic-release
         env:
           CI: "true"
