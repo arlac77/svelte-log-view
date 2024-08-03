@@ -157,10 +157,8 @@
 </script>
 
 <svelte:window {onkeydown} />
-<log-content bind:this={content}>
+<log-content {onclick} {onkeydown} bind:this={content} role="none">
   {#each visible as entry, i (i)}
-    <log-row {onclick} {onkeydown} role="none">
-      {@render row(entry, selected, offsetRows + i, follow)}
-    </log-row>
+    {@render row(entry, selected, offsetRows + i, follow)}
   {/each}
 </log-content>
