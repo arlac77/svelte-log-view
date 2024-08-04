@@ -28,14 +28,7 @@
 
   onDestroy(() => source.abort());
 
-  let done = false;
-
-  $effect(() => {
-    if(!done) {
-      fetchFollow();
-      done = true;
-    }
-	});
+  fetchFollow();
 
   async function fetchFollow() {
     let current;
