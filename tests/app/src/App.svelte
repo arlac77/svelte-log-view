@@ -40,7 +40,7 @@
           `${logSource}?${new URLSearchParams(Object.entries(params))}`,
           {
             headers: {
-              "Content-Type": "text/plain"
+              "Accept": "text/plain"
             },
             signal: controller.signal
           }
