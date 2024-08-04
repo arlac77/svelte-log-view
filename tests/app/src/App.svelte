@@ -75,7 +75,7 @@
 <div>
   <fieldset>
     <label for="offsetRows">
-      Offset Rows
+      Offset rows
       <input
         type="number"
         name="offsetRows"
@@ -83,9 +83,8 @@
         bind:value={offsetRows}
       />
     </label>
-
     <label for="selected">
-      Selected
+      Selected row
       <input
         type="number"
         name="selected"
@@ -103,7 +102,7 @@
       />
     </label>
     <label for="url">
-      Logging API
+      data source api endpoint
       <input
         type="url"
         name="url"
