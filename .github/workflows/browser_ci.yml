@@ -37,6 +37,9 @@ jobs:
       - run: npm it
         env:
           BROWSER: ${{ matrix.browser }}
+      - run: npm cit
+        env:
+          BROWSER: ${{ matrix.browser }}
       - uses: actions/upload-artifact@v4
         with:
           name: screenshots-${{ matrix.browser }}
@@ -76,6 +79,7 @@ jobs:
           cache: npm
           cache-dependency-path: package-lock.json
       - run: npm install
+      - run: npm ci
       - run: npx semantic-release
         env:
           CI: "true"
