@@ -1,4 +1,4 @@
-<script context="module">
+<script module>
   import LogView from './LogView.svelte';
   export { LogView };
 </script>
