@@ -54,7 +54,6 @@
       }
     }
   };
-
 </script>
 
 {#snippet row(entry,selected,position,follow)}
