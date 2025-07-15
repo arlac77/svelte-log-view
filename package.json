@@ -47,14 +47,14 @@
     "mf-styling": "^3.2.13",
     "npm-pkgbuild": "^18.2.12",
     "reader-line-iterator": "^1.2.2",
-    "semantic-release": "^24.2.6",
-    "svelte": "^5.35.5",
+    "semantic-release": "^24.2.7",
+    "svelte": "^5.36.0",
     "testcafe": "^3.7.2",
     "vite": "^7.0.4",
     "vite-plugin-compression2": "^2.2.0"
   },
   "peerDependencies": {
-    "svelte": "^5.35.0"
+    "svelte": "^5.36.0"
   },
   "optionalDependencies": {
     "mf-hosting-cloudflare": "^1.0.8",
