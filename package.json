@@ -49,7 +49,7 @@
     "npm-pkgbuild": "^18.3.9",
     "reader-line-iterator": "^1.2.2",
     "semantic-release": "^24.2.9",
-    "svelte": "^5.39.8",
+    "svelte": "^5.39.9",
     "testcafe": "^3.7.2",
     "vite": "^7.1.9",
     "vite-plugin-compression2": "^2.2.1"
