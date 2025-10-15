@@ -41,15 +41,15 @@
   "devDependencies": {
     "@semantic-release/commit-analyzer": "^13.0.1",
     "@semantic-release/exec": "^7.1.0",
-    "@semantic-release/github": "^11.0.6",
+    "@semantic-release/github": "^12.0.0",
     "@semantic-release/release-notes-generator": "^14.1.0",
     "@sveltejs/vite-plugin-svelte": "^6.2.1",
     "documentation": "^14.0.3",
     "mf-styling": "^3.2.13",
     "npm-pkgbuild": "^18.3.10",
     "reader-line-iterator": "^1.2.2",
-    "semantic-release": "^24.2.9",
-    "svelte": "^5.40.0",
+    "semantic-release": "^25.0.0",
+    "svelte": "^5.40.1",
     "testcafe": "^3.7.2",
     "vite": "^7.1.10",
     "vite-plugin-compression2": "^2.3.0"
