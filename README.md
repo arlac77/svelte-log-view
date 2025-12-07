@@ -1,6 +1,11 @@
+[![Svelte v5](https://img.shields.io/badge/svelte-v5-orange.svg)](https://svelte.dev)
 [![npm](https://img.shields.io/npm/v/svelte-log-view.svg)](https://www.npmjs.com/package/svelte-log-view)
 [![bundlejs](https://deno.bundlejs.com/?q=svelte-log-view\&badge=detailed)](https://bundlejs.com/?q=svelte-log-view)
 [![downloads](http://img.shields.io/npm/dm/svelte-log-view.svg?style=flat-square)](https://npmjs.org/package/svelte-log-view)
+[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](git+https://github.com/arlac77/svelte-log-view.git)
+[![Styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+[![Known Vulnerabilities](https://snyk.io/test/github/arlac77/svelte-log-view/badge.svg)](https://snyk.io/test/github/arlac77/svelte-log-view)
 [![Tested with playwright](https://img.shields.io/badge/tested%20with-playwright-2fa4cf.svg)](https://playwright.dev)
 
 # svelte-log-view
