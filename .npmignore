@@ -1,3 +1,4 @@
+playwright.config.js
 build
 tests
 doc
@@ -11,3 +12,8 @@ jsconfig.json
 pkg
 vite.config.mts
 dist
+.last-run.json
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
