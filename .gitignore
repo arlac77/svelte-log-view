@@ -8,10 +8,10 @@ build
 .test
 .tmp
 dist
-
 # Playwright
 node_modules/
 /test-results/
+.last-run.json
 /playwright-report/
 /blob-report/
 /playwright/.cache/
