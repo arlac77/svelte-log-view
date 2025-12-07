@@ -131,11 +131,11 @@
   "template": {
     "inheritFrom": [
       "arlac77/template-playwright",
-      "arlac77/template-vite"
+      "arlac77/template-vite",
+      "arlac77/template-npm-pkgbuild"
     ],
     "xinheritFrom": [
-      "arlac77/template-svelte-component",
-      "arlac77/template-npm-pkgbuild"
+      "arlac77/template-svelte-component"
     ]
   }
 }
