@@ -13,8 +13,8 @@ permissions:
   id-token: write
 jobs:
   test-node:
-    timeout-minutes: 60
     runs-on: ubuntu-latest
+    timeout-minutes: 60
     strategy:
       matrix:
         os:
