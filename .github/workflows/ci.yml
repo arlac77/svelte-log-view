@@ -8,7 +8,7 @@ permissions:
   contents: read
   id-token: write
 jobs:
-  test:
+  test-node:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -36,7 +36,7 @@ jobs:
         if: ${{ !cancelled() }}
   release:
     needs:
-      - test
+      - test-node
     runs-on: ubuntu-latest
     permissions:
       contents: write
