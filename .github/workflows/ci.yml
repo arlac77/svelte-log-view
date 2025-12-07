@@ -13,7 +13,6 @@ permissions:
   id-token: write
 jobs:
   test-node:
-    timeout-minutes: 60
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -39,6 +38,7 @@ jobs:
           path: ${{ github.workspace }}/playwright-report/**/*
           retention-days: 30
         if: ${{ !cancelled() }}
+    timeout-minutes: 60
   release:
     needs:
       - test-node
