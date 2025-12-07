@@ -11,5 +11,6 @@ build
 dist
 .last-run.json
 /playwright-report/
+/test-results/
 /blob-report/
 /playwright/.cache/
