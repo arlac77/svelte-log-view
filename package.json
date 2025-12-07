@@ -129,9 +129,7 @@
     ]
   },
   "template": {
-    "inheritFrom": [
-      "arlac77/template-playwright"
-    ],
+    "inheritFrom": "arlac77/template-playwright",
     "xinheritFrom": [
       "arlac77/template-svelte-component",
       "arlac77/template-vite",
