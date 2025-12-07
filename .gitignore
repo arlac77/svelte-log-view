@@ -8,7 +8,6 @@ build
 .test
 .tmp
 dist
-
 # Playwright
 node_modules/
 /test-results/
