@@ -1,4 +1,5 @@
 bun.lockb
+/playwright/.auth/
 /node_modules/**
 *.log
 *.dump
@@ -8,3 +9,7 @@ build
 .test
 .tmp
 dist
+.last-run.json
+/playwright-report/
+/blob-report/
+/playwright/.cache/
