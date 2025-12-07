@@ -1,13 +1,9 @@
 name: CI
 on:
   push:
-    branches:
-      - master
-      - next
+    branches: [master, next]
   pull_request:
-    branches:
-      - master
-      - next
+    branches: [master, next]
 permissions:
   contents: read
   id-token: write
@@ -18,8 +14,6 @@ jobs:
       matrix:
         os:
           - ubuntu-latest
-        browser:
-          - chrome
         node-version:
           - 24.11.1
     steps:
@@ -29,6 +23,8 @@ jobs:
         uses: actions/setup-node@v6.1.0
         with:
           node-version: ${{ matrix.node-version }}
+      - name: install playwright
+        run: npx playwright install --with-deps
       - name: npm install
         run: npm cit
       - name: upload test report
