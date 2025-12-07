@@ -32,7 +32,7 @@
     "prepare:vite": "vite build",
     "start": "vite",
     "test": "node --run test:playwright",
-    "test:playwright":"npx playwright test",
+    "test:playwright": "npx playwright test",
     "docs": "documentation readme --section=API ./src**/*.mjs",
     "lint": "node --run lint:docs",
     "lint:docs": "documentation lint ./src**/*.mjs",
@@ -52,7 +52,7 @@
     "playwright": "^1.57.0",
     "reader-line-iterator": "^1.2.3",
     "semantic-release": "^25.0.2",
-    "svelte": "^5.45.5",
+    "svelte": "^5.45.6",
     "vite": "^7.2.6",
     "vite-plugin-compression2": "^2.4.0"
   },
@@ -134,6 +134,7 @@
       "arlac77/template-arlac77-github",
       "arlac77/template-cloudflare",
       "arlac77/template-npm-pkgbuild",
+      "arlac77/template-playwright",
       "arlac77/template-svelte-component",
       "arlac77/template-vite"
     ]
