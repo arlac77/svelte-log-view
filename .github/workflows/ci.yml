@@ -30,7 +30,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: install playwright
         run: npx playwright install --with-deps
-      - name: npm install
+      - name: install npm
         run: npm cit
       - name: upload test report
         uses: actions/upload-artifact@v5
