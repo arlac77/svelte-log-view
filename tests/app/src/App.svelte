@@ -10,8 +10,9 @@
   }
 
   let logSource = $state(localStorage.logSource);
-  $effect(() => localStorage.logSource = logSource);
+  $effect(() => (localStorage.logSource = logSource));
 
+  let visibleRows = $state(10);
   let offsetRows = $state(0);
   let follow = $state(true);
   let selected = $state(-1);
@@ -30,7 +31,7 @@
         number
       };
 
-      if(cursor) {
+      if (cursor) {
         const lineNumber = parseInt(cursor.substring(5));
         params.cursor = offset >= 0 ? lineNumber + 1 : lineNumber - 1;
       }
@@ -40,7 +41,7 @@
           `${logSource}?${new URLSearchParams(Object.entries(params))}`,
           {
             headers: {
-              "Accept": "text/plain"
+              Accept: "text/plain"
             },
             signal: controller.signal
           }
@@ -48,7 +49,7 @@
 
         yield* lineIterator(response.body.getReader());
       } catch (e) {
-        if (!e instanceof AbortSignal) {
+        if ((!e) instanceof AbortSignal) {
           throw e;
         }
       }
@@ -56,23 +57,23 @@
   };
 </script>
 
-{#snippet row(entry,selected,position,follow)}
+{#snippet row(entry, selected, position, follow)}
   <div class={selected === position ? "selected" : ""}>{entry}</div>
 {/snippet}
 
 <div id="log">
   <LogView
-    visibleRows={10}
     {source}
+    bind:visibleRows
     bind:selected
     bind:follow
     bind:offsetRows
     {row}
-  >
-  </LogView>
+  ></LogView>
 </div>
 <div>
   <fieldset>
+    <legend>log view properties</legend>
     <label for="offsetRows">
       Offset rows
       <input
@@ -91,15 +92,22 @@
         bind:value={selected}
       />
     </label>
-    <label for="follow">
-      Follow
+    <label for="visibleRows">
+      Visible rows
       <input
-        type="checkbox"
-        name="follow"
-        id="follow"
-        bind:checked={follow}
+        type="number"
+        name="visibleRows"
+        id="visibleRows"
+        bind:value={visibleRows}
       />
     </label>
+    <label for="follow">
+      Follow
+      <input type="checkbox" name="follow" id="follow" bind:checked={follow} />
+    </label>
+  </fieldset>
+  <fieldset>
+    <legend>data source</legend>
     <label for="url">
       data source api endpoint
       <input

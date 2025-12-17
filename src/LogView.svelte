@@ -13,9 +13,9 @@
    */
 
   let {
-    source,                /** data source */
-    visibleRows = 24,      /** number of rows in the dom */
-    offsetRows = $bindable(0),  /** number of rows from the top to the 1st. visible */
+    source,                      /** data source */
+    visibleRows = $bindable(24),   /** number of rows in the dom */
+    offsetRows = $bindable(0),   /** number of rows from the top to the 1st. visible */
     follow = $bindable(true),
     selected = $bindable(0),
     fetchAboveRows = 2,    /** number of rows to fetch if scrolling upwards into the void */
@@ -53,7 +53,6 @@
 
         if (follow) {
           setSelected(entries.length - 1);
-
           current = entries[entries.length - 1];
         }
       }
