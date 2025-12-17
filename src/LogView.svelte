@@ -14,7 +14,7 @@
 
   let {
     source,                      /** data source */
-    visibleRows = $bindable(24),   /** number of rows in the dom */
+    visibleRows = $bindable(24), /** number of rows in the dom */
     offsetRows = $bindable(0),   /** number of rows from the top to the 1st. visible */
     follow = $bindable(true),
     selected = $bindable(0),

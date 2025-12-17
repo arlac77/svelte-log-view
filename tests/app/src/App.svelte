@@ -3,6 +3,8 @@
   import { LogView } from "../../../src/index.svelte";
   import { api } from "./constants.mjs";
 
+  let innerHeight = $state(window.innerHeight);
+
   let controller = new AbortController();
 
   if (!localStorage.logSource) {
@@ -12,7 +14,7 @@
   let logSource = $state(localStorage.logSource);
   $effect(() => (localStorage.logSource = logSource));
 
-  let visibleRows = $state(10);
+  let visibleRows = $derived(Math.floor(innerHeight / 13) - 30);
   let offsetRows = $state(0);
   let follow = $state(true);
   let selected = $state(-1);
@@ -56,6 +58,10 @@
     }
   };
 </script>
+
+<svelte:window 
+	bind:innerHeight
+  />
 
 {#snippet row(entry, selected, position, follow)}
   <div class={selected === position ? "selected" : ""}>{entry}</div>
