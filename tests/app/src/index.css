@@ -10,3 +10,7 @@
 #log {
   min-height: 12rem;
 }
+
+input {
+  display: block
+}
