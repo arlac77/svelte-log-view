@@ -22,7 +22,7 @@
     row
   } = $props();
 
-  let entries = [];
+  const entries = [];
   let visible = $state(entries);
   let content;
 
@@ -121,10 +121,12 @@
         setFollow(false);
         setSelected(selected + visibleRows);
         break;
+      case "End":
       case "G":
         setFollow(false);
         setSelected(entries.length - 1);
         break;
+      case "Home":
       case "g":
         setFollow(false);
         setSelected(0);
