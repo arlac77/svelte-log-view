@@ -14,8 +14,8 @@
   let logSource = $state(localStorage.logSource);
   $effect(() => (localStorage.logSource = logSource));
 
-  let visibleRows = $derived(Math.floor(innerHeight / 13) - 30);
-  let offsetRows = $state(0);
+  let visibleEntries = $derived(Math.floor((innerHeight - 250) / 23));
+  let offsetEntries = $state(0);
   let follow = $state(true);
   let selected = $state(-1);
 
@@ -70,23 +70,24 @@
 <div id="log">
   <LogView
     {source}
-    bind:visibleRows
+    bind:visibleEntries
     bind:selected
     bind:follow
-    bind:offsetRows
+    bind:offsetEntries
+    maxBufferedEntries={80}
     {row}
   ></LogView>
 </div>
 <div>
   <fieldset>
     <legend>log view properties</legend>
-    <label for="offsetRows">
+    <label for="offsetEntries">
       Offset rows
       <input
         type="number"
-        name="offsetRows"
-        id="offsetRows"
-        bind:value={offsetRows}
+        name="offsetEntries"
+        id="offsetEntries"
+        bind:value={offsetEntries}
       />
     </label>
     <label for="selected">
@@ -98,13 +99,13 @@
         bind:value={selected}
       />
     </label>
-    <label for="visibleRows">
+    <label for="visibleEntries">
       Visible rows
       <input
         type="number"
-        name="visibleRows"
-        id="visibleRows"
-        bind:value={visibleRows}
+        name="visibleEntries"
+        id="visibleEntries"
+        bind:value={visibleEntries}
       />
     </label>
     <label for="follow">
