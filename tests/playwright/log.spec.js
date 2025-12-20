@@ -12,7 +12,7 @@ test("log canvas present", async ({ page }) => {
 
   await page.locator("log-content").press("g");
   await expect(page.locator("log-content")).toContainText("line 0");
-  await expect(page.locator("#offsetRows")).toHaveValue("0");
+  await expect(page.locator("#offsetEntries")).toHaveValue("0");
   await expect(page.locator("#selected")).toHaveValue("0");
   await expect(page.locator("#follow")).not.toBeChecked();
 
