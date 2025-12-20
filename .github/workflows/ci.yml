@@ -76,6 +76,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install ksh
           sudo apt-get -y install makepkg
+          makepkg -h
           fi
       - name: release
         run: npx semantic-release
