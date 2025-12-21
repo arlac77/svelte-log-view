@@ -72,8 +72,8 @@ const myServerPlugin = () => ({
         const params = new URLSearchParams(req.url.replace(/^[^\?]+\?/, ""));
 
         let line = parseInt(params.get("cursor") || "0");
-        const offset = parseInt(params.get("offset") || "0");
-        const number = parseInt(params.get("number") || "10");
+        const offset = Math.max(parseInt(params.get("offset") || "0"),-1000);
+        const number = Math.min(parseInt(params.get("number") || "10"),1000);
 
         line += offset;
 
