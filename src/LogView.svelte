@@ -6,7 +6,7 @@
    *   line 2    | -> offsetEntries.  |
    * ----------                       |
    * | line 4 |  |                    |
-   * | line 5 |  | -> visibleEntries. | -> maxBufferedEntries
+   * | line 5 |  | -> numberOfVisibleEntries. | -> maxBufferedEntries
    * | line 5 |  |                    |
    * ----------                       |
    *   line 6                        /
@@ -14,20 +14,28 @@
 
   let {
     source /** data source */,
-    visibleEntries = $bindable(24) /** number of rows in the dom */,
+    entries = $bindable([]),
     offsetEntries = $bindable(
       0
-    ) /** number of rows from the top to the 1st. visible */,
+    ) /** number of entries from the top to the 1st. visible */,
     follow = $bindable(true),
     selected = $bindable(0),
-    numberOfEntriesToFetch = 10 /** number of rows to fetch if we reach outside of the buffered area */,
+    numberOfEntriesToFetch = 10 /** number of entries to fetch if we reach outside of the buffered area */,
     maxBufferedEntries = 1024,
-    row
+    entryElement
   } = $props();
 
-  const entries = [];
-  let visible = $state(entries);
-  let content;
+  let contentHeight = $state();
+  let numberOfVisibleEntries = $derived.by(() => {
+    console.log("contentHeight",contentHeight);
+    const n = Math.ceil(contentHeight / entryHeight);
+    return n;
+  });
+
+  let visibleEntries = $derived.by(() => {
+    return entries.slice(offsetEntries, offsetEntries + numberOfVisibleEntries);
+  });
+  let entryHeight = 19.13;
 
   onDestroy(() => source.abort());
 
@@ -49,15 +57,6 @@
         if (entries.lenght >= maxBufferedEntries) {
           entries.shift();
         }
-
-        if (entries.length <= visibleEntries) {
-          visible = entries;
-        } else {
-          if (!follow) {
-            visible = entries.slice(offsetEntries, visibleEntries);
-          }
-        }
-
         if (follow) {
           setSelected(entries.length - 1);
           current = entries[entries.length - 1];
@@ -71,7 +70,7 @@
 
     if (selected > entries.length - 1) {
       selected = entries.length - 1;
-      offsetEntries = entries.length - visibleEntries;
+      offsetEntries = entries.length - numberOfVisibleEntries;
     }
 
     if (selected < 0) {
@@ -99,11 +98,14 @@
       offsetEntries = selected;
     }
 
-    if (selected >= offsetEntries + visibleEntries) {
-      offsetEntries = selected - visibleEntries + 1;
+    if (selected >= offsetEntries + numberOfVisibleEntries) {
+      offsetEntries = selected - numberOfVisibleEntries + 1;
     }
 
-    visible = entries.slice(offsetEntries, offsetEntries + visibleEntries);
+    visibleEntries = entries.slice(
+      offsetEntries,
+      offsetEntries + numberOfVisibleEntries
+    );
   }
 
   function setFollow(flag) {
@@ -129,21 +131,21 @@
         break;
       case "PageUp":
         setFollow(false);
-        setSelected(selected - visibleEntries);
+        setSelected(selected - numberOfVisibleEntries);
         break;
       case "PageDown":
         setFollow(false);
-        setSelected(selected + visibleEntries);
-        break;
-      case "End":
-      case "G":
-        setFollow(false);
-        setSelected(entries.length - 1);
+        setSelected(selected + numberOfVisibleEntries);
         break;
       case "Home":
       case "g":
         setFollow(false);
-        setSelected(0);
+        setSelected(Number.MIN_SAFE_INTEGER + 1);
+        break;
+      case "End":
+      case "G":
+        setFollow(false);
+        setSelected(Number.MAX_SAFE_INTEGER - 1);
         break;
       case "f":
         setFollow(!follow);
@@ -153,15 +155,18 @@
 
   function onclick(event) {
     setFollow(false);
-    const totalHeight = content.getBoundingClientRect().height;
-    const rowHeight = totalHeight / visibleEntries;
-    setSelected(offsetEntries + Math.floor(event.clientY / rowHeight));
+    setSelected(offsetEntries + Math.floor(event.clientY / entryHeight));
   }
 </script>
 
 <svelte:window {onkeydown} />
-<log-content {onclick} {onkeydown} bind:this={content} role="none">
-  {#each visible as entry, i (i)}
-    {@render row(entry, selected, offsetEntries + i, follow)}
+<log-content
+  {onclick}
+  {onkeydown}
+  bind:clientHeight={contentHeight}
+  role="presentation"
+>
+  {#each visibleEntries as entry, i (i)}
+    {@render entryElement(entry, selected, offsetEntries + i, follow)}
   {/each}
 </log-content>

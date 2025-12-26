@@ -3,9 +3,14 @@
   import { LogView } from "../../../src/index.svelte";
   import { api } from "./constants.mjs";
 
-  let innerHeight = $state(window.innerHeight);
-
   let controller = new AbortController();
+
+  let logView;
+  function handleResize() {
+    logView.height = (window.innerHeight - 100) + "px";
+
+    //console.log(logView.height);
+  }
 
   if (!localStorage.logSource) {
     localStorage.logSource = api;
@@ -14,9 +19,8 @@
   let logSource = $state(localStorage.logSource);
   $effect(() => (localStorage.logSource = logSource));
 
-  let visibleEntries = $derived(Math.floor((innerHeight - 250) / 23));
   let offsetEntries = $state(0);
-  let follow = $state(true);
+  let follow = $state(false);
   let selected = $state(-1);
 
   const source = {
@@ -59,74 +63,78 @@
   };
 </script>
 
-<svelte:window 
-	bind:innerHeight
-  />
+<svelte:window on:resize={handleResize} />
 
-{#snippet row(entry, selected, position, follow)}
+
+{#snippet entryElement(entry, selected, position, follow)}
   <div class={selected === position ? "selected" : ""}>{entry}</div>
 {/snippet}
 
-<div id="log">
-  <LogView
-    {source}
-    bind:visibleEntries
-    bind:selected
-    bind:follow
-    bind:offsetEntries
-    maxBufferedEntries={80}
-    {row}
-  ></LogView>
-</div>
+<LogView
+  bind:this={logView}
+  {source}
+  bind:selected
+  bind:follow
+  bind:offsetEntries
+  maxBufferedEntries={80} {entryElement}
+></LogView>
 <div>
-  <fieldset>
-    <legend>log view properties</legend>
-    <label for="offsetEntries">
-      Offset rows
-      <input
-        type="number"
-        name="offsetEntries"
-        id="offsetEntries"
-        bind:value={offsetEntries}
-      />
-    </label>
-    <label for="selected">
-      Selected row
-      <input
-        type="number"
-        name="selected"
-        id="selected"
-        bind:value={selected}
-      />
-    </label>
-    <label for="visibleEntries">
-      Visible rows
+  <form>
+    <fieldset>
+      <legend>log view properties</legend>
+      <label for="offsetEntries">
+        <span>Offset entries</span>
+        <input
+          type="number"
+          name="offsetEntries"
+          id="offsetEntries"
+          bind:value={offsetEntries}
+        />
+      </label>
+      <label for="selected">
+        <span>Selected entry</span>
+        <input
+          type="number"
+          name="selected"
+          id="selected"
+          bind:value={selected}
+        />
+      </label>
+      <!--<label for="visibleEntries">
+      <span>Visible entries</span>
       <input
         type="number"
         name="visibleEntries"
         id="visibleEntries"
         bind:value={visibleEntries}
       />
-    </label>
-    <label for="follow">
-      Follow
-      <input type="checkbox" name="follow" id="follow" bind:checked={follow} />
-    </label>
-  </fieldset>
-  <fieldset>
-    <legend>data source</legend>
-    <label for="url">
-      data source api endpoint
-      <input
-        type="url"
-        name="url"
-        id="url"
-        placeholder="https://example.com"
-        pattern="http?://.*"
-        size="60"
-        required
-        bind:value={logSource}
-      />
-    </label>
-  </fieldset>
+    </label>-->
+      <label for="follow">
+        <span>Follow</span>
+        <input
+          type="checkbox"
+          name="follow"
+          id="follow"
+          bind:checked={follow}
+        />
+      </label>
+    </fieldset>
+    <fieldset>
+      <legend>data source</legend>
+      <label for="url">
+        <span>data source api endpoint</span>
+        <input
+          type="url"
+          name="url"
+          id="url"
+          placeholder="https://example.com"
+          pattern="http?://.*"
+          size="60"
+          required
+          bind:value={logSource}
+        />
+      </label>
+    </fieldset>
+  </form>
 </div>
+
