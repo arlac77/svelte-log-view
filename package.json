@@ -47,11 +47,11 @@
     "@sveltejs/vite-plugin-svelte": "^6.2.4",
     "documentation": "^14.0.3",
     "mf-styling": "^3.3.2",
-    "npm-pkgbuild": "^20.2.1",
+    "npm-pkgbuild": "^20.2.3",
     "playwright": "^1.58.0",
     "reader-line-iterator": "^1.2.3",
     "semantic-release": "^25.0.2",
-    "svelte": "^5.49.0",
+    "svelte": "^5.49.1",
     "vite": "^7.3.1",
     "vite-plugin-compression2": "^2.4.0"
   },
