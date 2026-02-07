@@ -72,13 +72,13 @@
   "homepage": "https://github.com/arlac77/svelte-log-view#readme",
   "pkgbuild": {
     "content": {
-      "${install.dir}": "build/"
+      "${install_dir}": "build/"
     },
     "api": "api/log",
-    "csp.connect-src": "connect-src https://mocked-log-provider.markus-felten.workers.dev/ {{http.origin}} 'self';",
+    "csp_connect_src": "connect-src https://mocked-log-provider.markus-felten.workers.dev/ {{http_origin}} 'self';",
     "example": true,
     "frontend": true,
-    "nginx.server.extra": "rewrite {{http.base.path}}/svelte-log-view/api/log {{http.base.path}}/mocked-log-provider/ permanent;"
+    "nginx_server_extra": "rewrite {{http_base_path}}/svelte-log-view/api/log {{http_base_path}}/mocked-log-provider/ permanent;"
   },
   "release": {
     "plugins": [
