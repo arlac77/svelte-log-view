@@ -47,10 +47,10 @@
     "@sveltejs/vite-plugin-svelte": "^7.2.0",
     "documentation": "^14.0.3",
     "mf-styling": "^3.3.21",
-    "npm-pkgbuild": "^20.8.1",
+    "npm-pkgbuild": "^20.8.2",
     "playwright": "^1.61.1",
     "reader-line-iterator": "^1.2.3",
-    "semantic-release": "^25.0.6",
+    "semantic-release": "^25.0.7",
     "svelte": "^5.56.4",
     "vite": "^8.1.4",
     "vite-plugin-compression2": "^2.5.3"
