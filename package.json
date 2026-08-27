@@ -51,8 +51,8 @@
     "playwright": "^1.62.1",
     "reader-line-iterator": "^1.2.3",
     "semantic-release": "^25.0.9",
-    "svelte": "^5.56.9",
-    "vite": "^8.2.1",
+    "svelte": "^5.56.10",
+    "vite": "^8.2.2",
     "vite-plugin-compression2": "^2.5.3"
   },
   "peerDependencies": {
