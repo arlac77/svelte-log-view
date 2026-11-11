@@ -5,7 +5,7 @@
     "access": "public",
     "provenance": true
   },
-  "packageManager": "npm@11.18.0",
+  "packageManager": "npm@11.20.0",
   "exports": {
     ".": {
       "svelte": "./src/index.svelte"
@@ -52,7 +52,7 @@
     "reader-line-iterator": "^1.2.3",
     "semantic-release": "^25.0.9",
     "svelte": "^5.57.3",
-    "vite": "^8.3.6",
+    "vite": "^8.3.8",
     "vite-plugin-compression2": "^2.5.3"
   },
   "peerDependencies": {
