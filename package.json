@@ -51,7 +51,7 @@
     "playwright": "^1.65.1",
     "reader-line-iterator": "^1.2.3",
     "semantic-release": "^26.0.1",
-    "svelte": "^5.57.3",
+    "svelte": "^5.59.1",
     "vite": "^8.3.8",
     "vite-plugin-compression2": "^2.5.3"
   },
